@@ -1,51 +1,60 @@
 $fn=30;
-mainlen=17.2;
-fwdlen=3.6;
-fwdgap=1.4;
-rearlen=7;
-reargap=1.6;
-rearnoz=0.8;
+mainlen=21.5;
+fwdlen=4.5;
+fwdgap=1.75;
+rearlen=8.75;
+reargap=2;
+rearnoz=1;
+fwdnoz=0.6;
 mainoffset=reargap+rearlen+rearnoz;
 fwdoffset=mainlen+mainoffset;
+eng_rad=6.125;
 
 union() {
     forward_assembly();
     main_body();
-    rear_assembly();
+    rear_assembly(eng_rad);
 }
 
 module forward_assembly() {
+    nozrad=2;
     translate([0,0,fwdoffset]) difference () {
-        union() {
-            translate([0,0,fwdgap+fwdlen]) cylinder(h=0.6,r1=2.5,r2=1.8); //fwd nozzle
-            translate([0,0,fwdgap]) cylinder(h=fwdlen,r1=3,r2=2.5); // fwd cyl
-            coupler(len=fwdgap,radl=3.5,radm=2.7,radr=3);
+       union() {
+            translate([0,0,fwdgap+fwdlen]) cylinder(h=fwdnoz,r1=3.125,r2=2.25); //fwd nozzle
+            translate([0,0,fwdgap]) cylinder(h=fwdlen,r1=3.75,r2=3.125); // fwd cyl
+            coupler(len=fwdgap,radl=4.375,radm=3.375,radr=3.75);
         }
-        translate([0,0,fwdlen/2+fwdgap]) union() {
-            cylinder(h=fwdlen,r1=1.6,r2=1.6);
-            sphere(r=1.6);
-        }
+        translate([0,0,fwdlen+fwdgap]) rotate([0,180,0]) nozzle(fwdlen,nozrad);
     }
 }
 module main_body() {
-    translate([0,0,mainoffset]) cylinder(h=mainlen, r1=4.9, r2=3.5);
+    translate([0,0,mainoffset]) cylinder(h=mainlen, r1=eng_rad, r2=4.375);
 }
-module rear_assembly() {
+module rear_assembly(cylbig) {
+    nozrad=3.8;
+    cylsmall=5.125;
+    pinch=4.125;
     difference() {
         union() {
-            translate([0,0,rearlen+rearnoz]) coupler(len=reargap,radl=4.9,radm=3.3,radr=4.9);
-            translate([0,0,rearnoz]) cylinder(h=rearlen,r1=4.1,r2=4.9); //rear cyl
-            translate([0,0,0]) cylinder(h=rearnoz,r1=3.3,r2=4.1); //rear nozzle
+            translate([0,0,rearlen+rearnoz]) coupler(len=reargap,radl=cylbig,radm=pinch,radr=cylbig);
+            translate([0,0,rearnoz]) cylinder(h=rearlen,r1=cylsmall,r2=cylbig); //rear cyl
+            translate([0,0,0]) cylinder(h=rearnoz,r1=pinch,r2=cylsmall); //rear nozzle
         }
-        union() {
-            cylinder(h=rearlen,r1=3.1,r2=3.1,center=true);
-            translate([0,0,rearlen/2]) sphere(3.1);
-        }
+        nozzle( rearlen, nozrad );
     }
 }
 module coupler(len,radl,radm,radr) {
-      union() {
-             cylinder(h=len/2,r1=radl,r2=radm );
-             translate([0,0,len/2]) cylinder(h=len/2,r1=radm,r2=radr );
-      }
+    maxr = max(radl,radr);
+    union() {
+        cylinder(h=len/2,r1=radl,r2=radm );
+        translate([0,0,len/2]) cylinder(h=len/2,r1=radm,r2=radr );
+        for (i = [0:5])
+            rotate(i*60) translate([radm,0,-len*0.1]) cube([maxr-radm,0.4,len*1.2]);
+    }
+}
+module nozzle(len,rad) {
+        union() {
+            cylinder(h=len,r1=rad,r2=rad,center=true);
+            translate([0,0,len/2]) sphere(rad);
+        }
 }
