@@ -47,8 +47,8 @@ module coupler(len,radl,radm,radr) {
     union() {
         cylinder(h=len/2,r1=radl,r2=radm );
         translate([0,0,len/2]) cylinder(h=len/2,r1=radm,r2=radr );
-//        for (i = [0:5])
-//            rotate(i*60) translate([radm,0,-len*0.1]) cube([maxr-radm,0.4,len*1.2]);
+        for (i = [0:5])
+            rotate(i*60) translate([0,0,-len*0.1]) cube([maxr,1,len*1.2]);
     }
 }
 module nozzle(len,rad) {
