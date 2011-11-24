@@ -1,14 +1,15 @@
 $fn=30;
-mainlen=21.5;
-fwdlen=4.5;
-fwdgap=1.75;
-rearlen=8.75;
-reargap=2;
-rearnoz=1;
-fwdnoz=0.6;
+mainlen=32.25;
+fwdlen=6.75;
+fwdgap=2.6;
+rearlen=13;
+reargap=3;
+rearnoz=1.5;
+fwdnoz=1;
 mainoffset=reargap+rearlen+rearnoz;
 fwdoffset=mainlen+mainoffset;
-eng_rad=6;
+eng_rad=9;
+eng_smrad=6.6;
 
 union() {
     forward_assembly();
@@ -17,51 +18,55 @@ union() {
 }
 
 module forward_assembly() {
+    bevel=3.4;
+    fwd_sm=4.5;
+    fwd_lg=5.8;
+    fwd_pinch=5.1;
     translate([0,0,fwdoffset]) difference () {
        union() {
-            translate([0,0,fwdgap+fwdlen]) cylinder(h=fwdnoz,r1=3,r2=2.25); //fwd nozzle
-            translate([0,0,fwdgap]) cylinder(h=fwdlen,r1=3.75,r2=3); // fwd cyl
-            coupler(len=fwdgap,radl=4.375,radm=3.375,radr=3.75);
+            translate([0,0,fwdgap+fwdlen]) cylinder(h=fwdnoz,r1=fwd_sm,r2=bevel); //fwd nozzle
+            translate([0,0,fwdgap]) cylinder(h=fwdlen,r1=fwd_lg,r2=fwd_sm); // fwd cyl
+            coupler(len=fwdgap,radl=eng_smrad,radm=fwd_pinch,radr=fwd_lg);
         }
-        translate([0,0,fwdlen+fwdgap]) rotate([0,180,0]) nozzle(fwdlen,2);
+        translate([0,0,fwdlen+fwdgap]) rotate([0,180,0]) nozzle(fwdlen,3);
     }
 }
 module main_body() {
     translate([0,0,mainoffset]) union() {
-        cylinder(h=mainlen, r1=eng_rad, r2=4.375);
-        translate([-4.375,0,mainlen]) side_nozzle_support();
-        rotate([0,0,90]) translate([-4.375,0,mainlen]) side_nozzle_support();
+        cylinder(h=mainlen, r1=eng_rad, r2=eng_smrad);
+        translate([-eng_smrad,0,mainlen]) side_nozzle_support();
+        rotate([0,0,90]) translate([-eng_smrad,0,mainlen]) side_nozzle_support();
     }
 }
 module rear_assembly(cylbig) {
-    cylsmall=5;
-    pinch=4;
+    cylsmall=7.5;
+    pinch=6;
     difference() {
         union() {
             translate([0,0,rearlen+rearnoz]) coupler(len=reargap,radl=cylbig,radm=pinch,radr=cylbig);
             translate([0,0,rearnoz]) cylinder(h=rearlen,r1=cylsmall,r2=cylbig); //rear cyl
             translate([0,0,0]) cylinder(h=rearnoz,r1=pinch,r2=cylsmall); //rear nozzle
         }
-        nozzle( rearlen, 3.2 );
+        nozzle( rearlen, 4.8 );
     }
 }
 
 module side_nozzle_support() {
-	translate([-2.756,0,-4.177]) rotate([0,90,0]) difference() {
+	translate([-4.2,0,-6.3]) rotate([0,90,0]) difference() {
         union() {
-            cylinder(h=4,r1=2.188,r2=2.467);
-            translate([0,0,-0.3]) cylinder(h=0.3,r2=2.188,r1=1.915);
-            translate([0.25,0,0.561]) scale([1.2,1,1]) intersection() {
-                cylinder(h=4,r1=2.1,r2=3.4);
-                translate([-5,0,0]) cube([10,10,10], center=true);
+            cylinder(h=6,r1=3.3,r2=3.7);
+            translate([0,0,-0.45]) cylinder(h=0.45,r2=3.3,r1=2.9); //bezel
+            translate([0.4,0,0.3]) scale([1.2,1,1]) intersection() {
+                cylinder(h=6,r1=3.15,r2=5.1);
+                translate([-7.5,0,0]) cube([15,15,15], center=true);
             }
-            translate([0.25,0,0.561]) intersection() {
-                translate([-1,0,0]) cylinder(h=4,r1=2.2,r2=12);
-                translate([5,0,0]) cube([10,10,10], center=true);
-                translate([0,0,-1.8]) scale([2,0.69,1]) cylinder(h=6,r1=2.2,r2=5);
+            translate([0.4,0,0.3]) intersection() {
+                translate([-1.5,0,0]) cylinder(h=6,r1=3.3,r2=18);
+                translate([7.5,0,0]) cube([15,15,15], center=true);
+                translate([0,0,-2.7]) scale([2,0.69,1]) cylinder(h=9,r1=3.3,r2=7.5);
             }
         }
-        translate([0,0,-1]) cylinder(4,r=1.5);
+        translate([0,0,-1.5]) cylinder(4,r=2.25);
     }
 }
 
