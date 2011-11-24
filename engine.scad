@@ -42,7 +42,7 @@ module rear_assembly(cylbig) {
             translate([0,0,rearnoz]) cylinder(h=rearlen,r1=cylsmall,r2=cylbig); //rear cyl
             translate([0,0,0]) cylinder(h=rearnoz,r1=pinch,r2=cylsmall); //rear nozzle
         }
-        nozzle( rearlen, 3.8 );
+        nozzle( rearlen, 3.2 );
     }
 }
 
