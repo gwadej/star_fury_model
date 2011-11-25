@@ -22,23 +22,23 @@ module forward_assembly() {
     fwd_sm=4.5;
     fwd_lg=5.8;
     fwd_pinch=5.1;
-    translate([0,0,fwdoffset]) difference () {
+    translate( [0,0,fwdoffset] ) difference() {
        union() {
-            translate([0,0,fwdgap+fwdlen]) cylinder(h=fwdnoz,r1=fwd_sm,r2=bevel); //fwd nozzle
-            translate([0,0,fwdgap]) cylinder(h=fwdlen,r1=fwd_lg,r2=fwd_sm); // fwd cyl
-            coupler(len=fwdgap,radl=eng_smrad,radm=fwd_pinch,radr=fwd_lg);
+            translate( [0,0,fwdgap+fwdlen] ) cylinder( h=fwdnoz, r1=fwd_sm, r2=bevel ); //fwd nozzle
+            translate( [0,0,fwdgap] ) cylinder( h=fwdlen, r1=fwd_lg, r2=fwd_sm ); // fwd cyl
+            coupler( len=fwdgap, radl=eng_smrad, radm=fwd_pinch, radr=fwd_lg );
         }
-        translate([0,0,fwdlen+fwdgap]) rotate([0,180,0]) nozzle(fwdlen,3);
+        translate( [0,0,fwdlen+fwdgap] ) rotate( [0,180,0] ) nozzle( fwdlen, 3 );
     }
 }
 module main_body() {
-    translate([0,0,mainoffset]) union() {
-        cylinder(h=mainlen, r1=eng_rad, r2=eng_smrad);
-        translate([-eng_smrad,0,mainlen]) side_nozzle_support();
-        rotate([0,0,90]) translate([-eng_smrad,0,mainlen]) side_nozzle_support();
+    translate( [0,0,mainoffset] ) union() {
+        cylinder( h=mainlen, r1=eng_rad, r2=eng_smrad );
+        translate( [-eng_smrad,0,mainlen] ) side_nozzle_support();
+        rotate( [0,0,90] ) translate( [-eng_smrad,0,mainlen] ) side_nozzle_support();
     }
 }
-module rear_assembly(cylbig) {
+module rear_assembly( cylbig ) {
     cylsmall=7.5;
     pinch=6;
     difference() {
@@ -47,7 +47,7 @@ module rear_assembly(cylbig) {
             translate([0,0,rearnoz]) cylinder(h=rearlen,r1=cylsmall,r2=cylbig); //rear cyl
             translate([0,0,0]) cylinder(h=rearnoz,r1=pinch,r2=cylsmall); //rear nozzle
         }
-        nozzle( rearlen, 4.8 );
+        nozzle( rearlen, 5.5 );
     }
 }
 
@@ -66,7 +66,7 @@ module side_nozzle_support() {
                 translate([0,0,-2.7]) scale([2,0.69,1]) cylinder(h=9,r1=3.3,r2=7.5);
             }
         }
-        translate([0,0,-1.5]) cylinder(4,r=2.25);
+        translate([0,0,-1.5]) cylinder(h=4,r=2.25);
     }
 }
 
