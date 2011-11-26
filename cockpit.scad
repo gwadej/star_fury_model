@@ -7,38 +7,39 @@ heightwid=14.73;
 topwind=height-heightwid;
 botleg=15.55;
 topleg=9.82;
-bdepth=29.93;
 point=7.94;
-depth=bdepth+point;
-union() {
-    section(    [-topwid/2, -topwind], [ topwid/2, -topwind], [midwid/2, -1] );
-    invsection( [-topwid/2, -topwind], [-midwid/2, -1],       [midwid/2, -1] );
 
-    section(    [ topwid/2, -topwind], [ width/2,  0],        [midwid/2, -1] );
-    invsection( [ width/2,  0],        [ midwid/2, 0],        [midwid/2, -1] );
+module cockpit() {
+    union() {
+        section(    [-topwid/2, -topwind], [ topwid/2, -topwind], [midwid/2, -1] );
+        invsection( [-topwid/2, -topwind], [-midwid/2, -1],       [midwid/2, -1] );
 
-    section(    [-topwid/2, -topwind], [-width/2,  0],        [-midwid/2, -1] );
-    invsection( [-width/2,  0],        [-midwid/2, 0],        [-midwid/2, -1] );
+        section(    [ topwid/2, -topwind], [ width/2,  0],        [midwid/2, -1] );
+        invsection( [ width/2,  0],        [ midwid/2, 0],        [midwid/2, -1] );
 
-    section(    [-botwid/2, heightwid], [ botwid/2, heightwid], [midwid/2, 1] );
-    invsection( [-botwid/2, heightwid], [-midwid/2, 1],       [midwid/2, 1] );
+        section(    [-topwid/2, -topwind], [-width/2,  0],        [-midwid/2, -1] );
+        invsection( [-width/2,  0],        [-midwid/2, 0],        [-midwid/2, -1] );
 
-    section(    [ botwid/2, heightwid], [ width/2,  0],        [midwid/2, 1] );
-    invsection( [ width/2,  0],        [ midwid/2, 0],        [midwid/2, 1] );
+        section(    [-botwid/2, heightwid], [ botwid/2, heightwid], [midwid/2, 1] );
+        invsection( [-botwid/2, heightwid], [-midwid/2, 1],       [midwid/2, 1] );
 
-    section(    [-botwid/2, heightwid], [-width/2,  0],        [-midwid/2, 1] );
-    invsection( [-width/2,  0],         [-midwid/2, 0],        [-midwid/2, 1] );
+        section(    [ botwid/2, heightwid], [ width/2,  0],        [midwid/2, 1] );
+        invsection( [ width/2,  0],        [ midwid/2, 0],        [midwid/2, 1] );
 
-    polyhedron(
-        points = [
-            [midwid/2, 1, point ],
-            [midwid/2, -1, point],
-            [-midwid/2, -1, point],
-            [-midwid/2, 1, point],
-            [0,0,0]
-        ],
-        triangles = [ [0,1,2],[2,3,0],[0,1,4],[1,2,4],[2,3,4],[3,0,4] ]
-    );
+        section(    [-botwid/2, heightwid], [-width/2,  0],        [-midwid/2, 1] );
+        invsection( [-width/2,  0],         [-midwid/2, 0],        [-midwid/2, 1] );
+
+        polyhedron(
+            points = [
+                [midwid/2, 1, point ],
+                [midwid/2, -1, point],
+                [-midwid/2, -1, point],
+                [-midwid/2, 1, point],
+                [0,0,0]
+            ],
+            triangles = [ [0,1,2], [2,3,0], [1,0,4], [2,1,4], [3,2,4], [3,4,0] ]
+        );
+    }
 }
 
 module section(b1,b2,t) {
