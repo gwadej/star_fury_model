@@ -33,6 +33,11 @@ barrel_zoffset=barrel_diam/2;
 union() {
     body();
     top_guns();
+    translate( [0,-topwind,0] ) upper_support();
+
+    translate( [7,0.4*middleheight,3] ) fuel_tank();
+    translate( [-7,0.4*middleheight,3] ) fuel_tank();
+    mid_supports( 7, 0.4*middleheight, 5 );
 }
 
 module body() {
@@ -77,6 +82,60 @@ module body() {
             ]
         );
     }
+}
+
+module upper_support() {
+    thickness=-6.48;
+    length=32.19;
+    width=27.67;
+    middle=10.17;
+    frontwidth=13.55;
+    midlength=length-10.17;
+    polyhedron(
+        points = [
+           // 0 : 5
+           [-frontwidth/2, 0, length], [-frontwidth/2+2.82,0,length], [-6.78/2,0,length-2.82], [6.78/2,0,length-2.82], [frontwidth/2-2.82,0,length], [frontwidth/2,0,length],
+           // 6 : 9
+           [width/2,0,midlength], [width/2,0,0], [-width/2,0,0], [-width/2,0,midlength],
+           // 10 : 15
+           [-frontwidth/2, thickness/8, length], [-frontwidth/2+2.82,thickness/8,length], [-6.78/2,thickness/3,length-2.82], [6.78/2,thickness/3,length-2.82], [frontwidth/2-2.82,thickness/8,length], [frontwidth/2,thickness/8,length],
+           // 16 : 19
+           [width/2,thickness,midlength], [width/2,thickness,0], [-width/2,thickness,0], [-width/2,thickness,midlength],
+
+        ],
+        triangles = [
+            [0,1,2], [0,2,9], [9,2,3], [9,3,6], [3,4,5], [3,5,6], [9,6,7], [7,8,9],
+            [0,10,1], [10,11,1],
+            [1,11,2], [11,12,2],
+            [2,12,3], [12,13,3],
+            [3,13,4], [13,14,4],
+            [4,14,5], [14,15,5],
+            [5,15,6], [15,16,6],
+            [6,16,7], [16,17,7],
+            [7,17,8], [17,18,8],
+            [8,18,9], [18,19,9],
+            [9,19,0], [19,10,0],
+            [12,11,10], [19,12,10], [13,12,19], [16,13,19], [15,14,13], [16,15,13], [17,16,19], [19,18,17]
+        ]
+    );
+}
+
+module mid_supports(dx,y,z) {
+    thickness=4.09;
+    depth=14;
+    len=16.5;
+    translate( [dx,y,z] ) rotate( [0,0,-43] ) translate([len/4,0,depth/2]) cube( [len,thickness,depth], center=true );
+    translate( [-dx,y,z] ) rotate( [0,0,223] ) translate([len/4,0,depth/2]) cube( [len,thickness,depth], center=true );
+}
+
+module fuel_tank() {
+       rad=4.5;
+       len=0.35*mid;
+       translate([0,0,rad]) union() {
+           cylinder( r=rad, h=len );
+           sphere( r=rad );
+           translate( [0,0,len] ) sphere( r=rad );
+       }
 }
 
 module top_guns() {
