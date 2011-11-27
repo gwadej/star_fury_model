@@ -35,8 +35,8 @@ union() {
     top_guns();
     translate( [0,-topwind,0] ) upper_support();
 
-    translate( [7,0.4*middleheight,3] ) fuel_tank();
-    translate( [-7,0.4*middleheight,3] ) fuel_tank();
+    translate( [7,0.4*middleheight,4] ) fuel_tank();
+    translate( [-7,0.4*middleheight,4] ) fuel_tank();
     mid_supports( 7, 0.4*middleheight, 5 );
 }
 
@@ -129,13 +129,9 @@ module mid_supports(dx,y,z) {
 }
 
 module fuel_tank() {
-       rad=4.5;
-       len=0.35*mid;
-       translate([0,0,rad]) union() {
-           cylinder( r=rad, h=len );
-           sphere( r=rad );
-           translate( [0,0,len] ) sphere( r=rad );
-       }
+    rad=4.5;
+    len=0.38*mid;
+    translate( [0, 0, rad+len/2] ) scale( [1, 1, len/rad] ) sphere(rad);
 }
 
 module top_guns() {
