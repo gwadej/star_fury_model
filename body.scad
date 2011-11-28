@@ -31,12 +31,12 @@ barrel_yoffset=-3*barrel_diam/2;
 barrel_zoffset=barrel_diam/2;
 
 union() {
-%   body();
-%   top_guns();
+    body();
+    top_guns();
     translate( [0,-topwind,0] ) upper_support();
 
-*   translate( [7,0.4*middleheight,4] ) fuel_tank();
-*   translate( [-7,0.4*middleheight,4] ) fuel_tank();
+    translate( [7,0.4*middleheight,4] ) fuel_tank();
+    translate( [-7,0.4*middleheight,4] ) fuel_tank();
   //  mid_supports( 7, 0.4*middleheight, 5 );
 }
 
@@ -117,7 +117,10 @@ module upper_support() {
             [7,17,8], [17,18,8],
             [8,18,23], [8,23,19], [8,19,9],
             [9,19,0], [19,10,0],
-  //          [12,11,10], [19,12,10], [13,12,19], [16,13,19], [15,14,13], [16,15,13], [17,16,19], [19,18,17]
+            [23,18,22], [22,18,17], [21,22,17], [21,17,20],
+            [11,10,19], [12,11,19],
+            [15,14,16], [14,13,16], [19,13,12], [19,16,13],
+            [19,23,22], [16,21,20], [19,22,16], [16,22,21],
         ]
     );
 }
