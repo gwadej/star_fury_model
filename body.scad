@@ -31,13 +31,13 @@ barrel_yoffset=-3*barrel_diam/2;
 barrel_zoffset=barrel_diam/2;
 
 union() {
-    body();
-    top_guns();
+%   body();
+%   top_guns();
     translate( [0,-topwind,0] ) upper_support();
 
-    translate( [7,0.4*middleheight,4] ) fuel_tank();
-    translate( [-7,0.4*middleheight,4] ) fuel_tank();
-    mid_supports( 7, 0.4*middleheight, 5 );
+*   translate( [7,0.4*middleheight,4] ) fuel_tank();
+*   translate( [-7,0.4*middleheight,4] ) fuel_tank();
+  //  mid_supports( 7, 0.4*middleheight, 5 );
 }
 
 module body() {
@@ -100,7 +100,9 @@ module upper_support() {
            // 10 : 15
            [-frontwidth/2, thickness/8, length], [-frontwidth/2+2.82,thickness/8,length], [-6.78/2,thickness/3,length-2.82], [6.78/2,thickness/3,length-2.82], [frontwidth/2-2.82,thickness/8,length], [frontwidth/2,thickness/8,length],
            // 16 : 19
-           [width/2,thickness,midlength], [width/2,thickness,0], [-width/2,thickness,0], [-width/2,thickness,midlength],
+           [width/2,thickness,midlength], [width/2,thickness/8,0], [-width/2,thickness/8,0], [-width/2,thickness,midlength],
+           // 20 : 21
+           [width/2,thickness,6.78], [6.21,thickness,10.17], [-6.21,thickness,10.17], [-width/2,thickness,6.78],
 
         ],
         triangles = [
@@ -111,11 +113,11 @@ module upper_support() {
             [3,13,4], [13,14,4],
             [4,14,5], [14,15,5],
             [5,15,6], [15,16,6],
-            [6,16,7], [16,17,7],
+            [6,16,20], [6,20,17], [6,17,7],
             [7,17,8], [17,18,8],
-            [8,18,9], [18,19,9],
+            [8,18,23], [8,23,19], [8,19,9],
             [9,19,0], [19,10,0],
-            [12,11,10], [19,12,10], [13,12,19], [16,13,19], [15,14,13], [16,15,13], [17,16,19], [19,18,17]
+  //          [12,11,10], [19,12,10], [13,12,19], [16,13,19], [15,14,13], [16,15,13], [17,16,19], [19,18,17]
         ]
     );
 }
