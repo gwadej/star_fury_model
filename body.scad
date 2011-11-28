@@ -8,8 +8,8 @@ bottomwidth=7.57;
 middlewidth=4.9;
 middleheight=14.73;
 topwind=height-middleheight;
-mid=29.93*zscale;
-point=7.94*zscale;
+mid=45.3;
+point=12.02;
 depth=mid+point;
 
 toplt=-topwidth/2;
@@ -36,8 +36,8 @@ union() {
     top_guns();
     translate( [0,-topwind,0] ) upper_support();
 
-    translate( [7,0.4*middleheight,4] ) fuel_tank();
-    translate( [-7,0.4*middleheight,4] ) fuel_tank();
+    translate( [7,0.4*middleheight,6] ) fuel_tank();
+    translate( [-7,0.4*middleheight,6] ) fuel_tank();
   //  mid_supports( 7, 0.4*middleheight, 5 );
 }
 
@@ -87,23 +87,26 @@ module body() {
 
 module upper_support() {
     thickness=-6.48;
-    length=32.19*zscale;
+    length=48.72;
     width=27.67;
     middle=10.17;
     frontwidth=13.55;
-    midlength=length-10.17*zscale;
+    frontdip=length-4.27;
+    mid=15.39;
+    midlength=length-mid;
+    topoff=10.26;
     polyhedron(
         points = [
            // 0 : 5
-           [-frontwidth/2, 0, length], [-frontwidth/2+2.82,0,length], [-6.78/2,0,length-2.82*zscale], [6.78/2,0,length-2.82*zscale], [frontwidth/2-2.82,0,length], [frontwidth/2,0,length],
+           [-frontwidth/2, 0, length], [-frontwidth/2+2.82,0,length], [-6.78/2,0,frontdip], [6.78/2,0,frontdip], [frontwidth/2-2.82,0,length], [frontwidth/2,0,length],
            // 6 : 9
            [width/2,0,midlength], [width/2,0,0], [-width/2,0,0], [-width/2,0,midlength],
            // 10 : 15
-           [-frontwidth/2, thickness/8, length], [-frontwidth/2+2.82,thickness/8,length], [-6.78/2,thickness/3,length-2.82*zscale], [6.78/2,thickness/3,length-2.82*zscale], [frontwidth/2-2.82,thickness/8,length], [frontwidth/2,thickness/8,length],
+           [-frontwidth/2, thickness/8, length], [-frontwidth/2+2.82,thickness/8,length], [-6.78/2,thickness/3,frontdip], [6.78/2,thickness/3,frontdip], [frontwidth/2-2.82,thickness/8,length], [frontwidth/2,thickness/8,length],
            // 16 : 19
            [width/2,thickness,midlength], [width/2,thickness/8,0], [-width/2,thickness/8,0], [-width/2,thickness,midlength],
            // 20 : 21
-           [width/2,thickness,6.78*zscale], [6.21,thickness,10.17*zscale], [-6.21,thickness,10.17*zscale], [-width/2,thickness,6.78*zscale],
+           [width/2,thickness,topoff], [6.21,thickness,mid], [-6.21,thickness,mid], [-width/2,thickness,topoff],
 
         ],
         triangles = [
@@ -137,7 +140,7 @@ module mid_supports(dx,y,z) {
 module fuel_tank() {
     rad=4.5;
     len=0.3*depth;
-    translate( [0, 0, 1.25*rad*zscale+len/2] ) scale( [1, 1, len/rad] ) sphere(rad);
+    translate( [0, 0, rad*zscale+len/2] ) scale( [1, 1, len/rad] ) sphere(rad);
 }
 
 module top_guns() {
