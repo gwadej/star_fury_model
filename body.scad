@@ -1,5 +1,6 @@
 include <utils.scad>
 $fn=30;
+zscale=56/37;
 height=23.73;
 width=18;
 topwidth=11.45;
@@ -7,8 +8,8 @@ bottomwidth=7.57;
 middlewidth=4.9;
 middleheight=14.73;
 topwind=height-middleheight;
-mid=29.93;
-point=7.94;
+mid=29.93*zscale;
+point=7.94*zscale;
 depth=mid+point;
 
 toplt=-topwidth/2;
@@ -25,7 +26,7 @@ frntrt=middlewidth/2;
 
 barrel_diam=2.5;
 flash=3.5;
-barrel_len=(depth+barrel_diam)/2;
+barrel_len=0.6*depth;
 barrel_xoffset=width/2+barrel_diam;
 barrel_yoffset=-3*barrel_diam/2;
 barrel_zoffset=barrel_diam/2;
@@ -86,23 +87,23 @@ module body() {
 
 module upper_support() {
     thickness=-6.48;
-    length=32.19;
+    length=32.19*zscale;
     width=27.67;
     middle=10.17;
     frontwidth=13.55;
-    midlength=length-10.17;
+    midlength=length-10.17*zscale;
     polyhedron(
         points = [
            // 0 : 5
-           [-frontwidth/2, 0, length], [-frontwidth/2+2.82,0,length], [-6.78/2,0,length-2.82], [6.78/2,0,length-2.82], [frontwidth/2-2.82,0,length], [frontwidth/2,0,length],
+           [-frontwidth/2, 0, length], [-frontwidth/2+2.82,0,length], [-6.78/2,0,length-2.82*zscale], [6.78/2,0,length-2.82*zscale], [frontwidth/2-2.82,0,length], [frontwidth/2,0,length],
            // 6 : 9
            [width/2,0,midlength], [width/2,0,0], [-width/2,0,0], [-width/2,0,midlength],
            // 10 : 15
-           [-frontwidth/2, thickness/8, length], [-frontwidth/2+2.82,thickness/8,length], [-6.78/2,thickness/3,length-2.82], [6.78/2,thickness/3,length-2.82], [frontwidth/2-2.82,thickness/8,length], [frontwidth/2,thickness/8,length],
+           [-frontwidth/2, thickness/8, length], [-frontwidth/2+2.82,thickness/8,length], [-6.78/2,thickness/3,length-2.82*zscale], [6.78/2,thickness/3,length-2.82*zscale], [frontwidth/2-2.82,thickness/8,length], [frontwidth/2,thickness/8,length],
            // 16 : 19
            [width/2,thickness,midlength], [width/2,thickness/8,0], [-width/2,thickness/8,0], [-width/2,thickness,midlength],
            // 20 : 21
-           [width/2,thickness,6.78], [6.21,thickness,10.17], [-6.21,thickness,10.17], [-width/2,thickness,6.78],
+           [width/2,thickness,6.78*zscale], [6.21,thickness,10.17*zscale], [-6.21,thickness,10.17*zscale], [-width/2,thickness,6.78*zscale],
 
         ],
         triangles = [
@@ -135,8 +136,8 @@ module mid_supports(dx,y,z) {
 
 module fuel_tank() {
     rad=4.5;
-    len=0.38*mid;
-    translate( [0, 0, rad+len/2] ) scale( [1, 1, len/rad] ) sphere(rad);
+    len=0.3*depth;
+    translate( [0, 0, 1.25*rad*zscale+len/2] ) scale( [1, 1, len/rad] ) sphere(rad);
 }
 
 module top_guns() {
@@ -153,7 +154,7 @@ module barrel() {
       difference() {
             union() {
                  cylinder(r=barrel_diam/2, h=barrel_len);
-                 translate( [0,0,barrel_len-flash-1] ) cylinder(r=flash/2, h=flash);
+                 translate( [0,0,barrel_len-(flash+1)] ) cylinder(r=flash/2, h=flash);
                  sphere( r=barrel_diam/2 );
            }
            translate([0,0,barrel_len]) rotate([180,0,0]) nozzle( 3, 0.8 );
