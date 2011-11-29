@@ -11,29 +11,15 @@ topwind=height-middleheight;
 mid=45.3;
 point=12.02;
 depth=mid+point;
-
-toplt=-topwidth/2;
-toprt=topwidth/2;
-midlt=-width/2;
-midrt=width/2;
-botlt=-bottomwidth/2;
-botrt=bottomwidth/2;
-top=-topwind;
-midback=mid-point/2;
-bot=middleheight;
-frntlt=-middlewidth/2;
-frntrt=middlewidth/2;
+offset=3;
 
 barrel_diam=2.5;
 flash=3.5;
 barrel_len=0.6*depth;
-barrel_xoffset=width/2+barrel_diam;
-barrel_yoffset=-3*barrel_diam/2;
-barrel_zoffset=barrel_diam/2;
 
 union() {
     body();
-    top_guns();
+    top_guns( barrel_diam, barrel_len, flash );
     translate( [0,-topwind,0] ) upper_support();
 
     translate( [7,0.4*middleheight,6] ) fuel_tank();
@@ -42,14 +28,26 @@ union() {
 }
 
 module body() {
-    off=2;
+    off=offset;
     bev=off/2;
+    toplt=-topwidth/2;
+    toprt=topwidth/2;
+    midlt=-width/2;
+    midrt=width/2;
+    botlt=-bottomwidth/2;
+    botrt=bottomwidth/2;
+    top=-topwind;
+    midback=mid-point/2;
+    bot=middleheight;
+    frntlt=-middlewidth/2;
+    frntrt=middlewidth/2;
+
     union() {
         polyhedron(
             points = [
-                [toplt, top, off],   [toprt, top, off],   [midrt, 0, off],       [botrt, bot, off],   [botlt, bot, off],   [midlt, 0, off],
-                [toplt, top, mid], [toprt, top, mid], [midrt, 0, midback], [botrt, bot, mid], [botlt, bot, mid], [midlt, 0, midback],
-                [frntlt, -1, depth], [frntrt, -1, depth], [frntrt, 1, depth], [frntlt, 1, depth]
+                [toplt, top, off],   [toprt, top, off],   [midrt, 0, off],     [botrt, bot, off], [botlt, bot, off], [midlt, 0, off],
+                [toplt, top, mid],   [toprt, top, mid],   [midrt, 0, midback], [botrt, bot, mid], [botlt, bot, mid], [midlt, 0, midback],
+                [frntlt, -1, depth], [frntrt, -1, depth], [frntrt, 1, depth],  [frntlt, 1, depth]
             ],
             triangles = [
                 [0, 4, 5], [1, 2, 3], [0, 3, 4], [0, 1, 3], //back
@@ -133,8 +131,8 @@ module mid_supports(dx,y,z) {
     thickness=4.09;
     depth=14;
     len=16.5;
-    translate( [dx,y,z] ) rotate( [0,0,-43] ) translate([len/4,0,depth/2]) cube( [len,thickness,depth], center=true );
-    translate( [-dx,y,z] ) rotate( [0,0,223] ) translate([len/4,0,depth/2]) cube( [len,thickness,depth], center=true );
+    translate( [ dx, y, z] ) rotate( [0, 0, -43] ) translate( [len/4, 0, depth/2] ) cube( [len, thickness, depth], center=true );
+    translate( [-dx, y, z] ) rotate( [0, 0, 223] ) translate( [len/4, 0, depth/2] ) cube( [len, thickness, depth], center=true );
 }
 
 module fuel_tank() {
@@ -143,23 +141,27 @@ module fuel_tank() {
     translate( [0, 0, rad*zscale+len/2] ) scale( [1, 1, len/rad] ) sphere(rad);
 }
 
-module top_guns() {
-    // forward gun support
-    translate( [0, barrel_yoffset, barrel_len-flash-barrel_diam] ) cube( [barrel_xoffset*2+3*barrel_diam/2, 1.25*barrel_diam, flash],center=true );
-    // rear gun support
-    translate( [0, barrel_yoffset, 2*barrel_diam] ) cube( [barrel_xoffset*2+3*barrel_diam/2, 1.25*barrel_diam, barrel_diam],center=true );
+module top_guns( diam, len, flash ) {
+    xoffset=width/2+diam;
+    yoffset=-3*diam/2;
+    zoffset=offset;
 
-    translate( [-barrel_xoffset,barrel_yoffset,barrel_zoffset] ) barrel();
-    translate( [barrel_xoffset,barrel_yoffset,barrel_zoffset] ) barrel();
+    // forward gun support
+    translate( [0, yoffset, len-flash-diam] ) cube( [xoffset*2+3*diam/2, 1.25*diam, flash], center=true );
+    // rear gun support
+    translate( [0, yoffset, 6] ) cube( [xoffset*2+3*diam/2, 1.25*diam, diam], center=true );
+
+    translate( [-xoffset, yoffset, zoffset] ) barrel( diam, len, flash );
+    translate( [ xoffset, yoffset, zoffset] ) barrel( diam, len, flash );
 }
 
-module barrel() {
+module barrel(diam,len,flash) {
       difference() {
             union() {
-                 cylinder(r=barrel_diam/2, h=barrel_len);
-                 translate( [0,0,barrel_len-(flash+1)] ) cylinder(r=flash/2, h=flash);
-                 sphere( r=barrel_diam/2 );
+                 cylinder(r=diam/2, h=len);
+                 translate( [0, 0, len-(flash+1)] ) cylinder(r=flash/2, h=flash);
+                 translate( [0, 0, -offset] ) cylinder( h=offset, r1=0.5, r2=diam/2 );
            }
-           translate([0,0,barrel_len]) rotate([180,0,0]) nozzle( 3, 0.8 );
+           translate( [0, 0, len] ) rotate( [180, 0, 0] ) nozzle( diam, diam/2-0.45 );
      }
 }
