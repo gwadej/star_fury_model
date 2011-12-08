@@ -20,7 +20,7 @@ barrel_len=0.6*depth;
 union() {
     body();
     top_guns( barrel_diam, barrel_len, flash );
-    translate( [0,-topwind,0] ) upper_support();
+    translate( [0,-topwind+0.1,0] ) upper_support();
 
     translate( [7,0.4*middleheight,6] ) fuel_tank();
     translate( [-7,0.4*middleheight,6] ) fuel_tank();
@@ -70,10 +70,15 @@ module body() {
                 [toplt+bev, top+bev, 0], [toprt-bev, top+bev, 0], [midrt-bev, 0, 0], [botrt-bev, bot-bev, 0], [botlt+bev, bot-bev, 0], [midlt+bev, 0, 0],
             ],
             triangles = [
+                // 0 : 3
                 [0, 4, 5], [1, 2, 3], [0, 3, 4], [0, 1, 3], //back
+                // 4, 5
                 [0, 6, 1], [1, 6, 7],       //top
+                // 6, 7
                 [6, 0, 5], [6, 5, 11],      //top left
+                // 8, 9
                 [8, 1, 7], [1, 8, 2],       //top right
+                // 10, 11
                 [9, 2, 8], [2, 9, 3],       //bottom right
                 [10, 3, 9], [3, 10, 4],     //bottom
                 [11, 4, 10], [4, 11, 5],    //bottom left
@@ -85,46 +90,67 @@ module body() {
 
 module upper_support() {
     thickness=-6.48;
+    edge=-2;
     length=48.72;
     width=27.67;
-    middle=10.17;
+    //middle=10.17;
     frontwidth=13.55;
-    frontdip=length-4.27;
-    mid=15.39;
-    midlength=length-mid;
+    //frontdip=length-4.27;
+    toprear=15.39;
+    topfrnt=32.06;
+    lead=length-15.39;
     topoff=10.26;
-    polyhedron(
-        points = [
-           // 0 : 5
-           [-frontwidth/2, 0, length], [-frontwidth/2+2.82,0,length], [-6.78/2,0,frontdip], [6.78/2,0,frontdip], [frontwidth/2-2.82,0,length], [frontwidth/2,0,length],
-           // 6 : 9
-           [width/2,0,midlength], [width/2,0,0], [-width/2,0,0], [-width/2,0,midlength],
-           // 10 : 15
-           [-frontwidth/2, thickness/8, length], [-frontwidth/2+2.82,thickness/8,length], [-6.78/2,thickness/3,frontdip], [6.78/2,thickness/3,frontdip], [frontwidth/2-2.82,thickness/8,length], [frontwidth/2,thickness/8,length],
-           // 16 : 19
-           [width/2,thickness,midlength], [width/2,thickness/8,0], [-width/2,thickness/8,0], [-width/2,thickness,midlength],
-           // 20 : 21
-           [width/2,thickness,topoff], [6.21,thickness,mid], [-6.21,thickness,mid], [-width/2,thickness,topoff],
-
-        ],
-        triangles = [
-            [0,1,2], [0,2,9], [9,2,3], [9,3,6], [3,4,5], [3,5,6], [9,6,7], [7,8,9],
-            [0,10,1], [10,11,1],
-            [1,11,2], [11,12,2],
-            [2,12,3], [12,13,3],
-            [3,13,4], [13,14,4],
-            [4,14,5], [14,15,5],
-            [5,15,6], [15,16,6],
-            [6,16,20], [6,20,17], [6,17,7],
-            [7,17,8], [17,18,8],
-            [8,18,23], [8,23,19], [8,19,9],
-            [9,19,0], [19,10,0],
-            [23,18,22], [22,18,17], [21,22,17], [21,17,20],
-            [11,10,19], [12,11,19],
-            [15,14,16], [14,13,16], [19,13,12], [19,16,13],
-            [19,23,22], [16,21,20], [19,22,16], [16,22,21],
-        ]
-    );
+    ftopoff=lead-topoff;
+    ridge=12.42;
+    difference() {
+        polyhedron(
+            points = [
+                // base: 0 : 5
+                [-frontwidth/2, 0, length], [frontwidth/2, 0, length], [width/2, 0, lead], [width/2, 0, 0], [-width/2, 0, 0], [-width/2, 0, lead],
+                // front: 6, 7
+                [-frontwidth/2, edge, length], [frontwidth/2, edge, length],
+                // right: 8 : 10
+                [width/2, edge, lead], [width/2, thickness, ftopoff], [width/2, thickness, topoff],
+                // rear: 11, 12
+                [width/2, edge, 0], [-width/2, edge, 0],
+                // left: 13 : 15
+                [-width/2, thickness, topoff], [-width/2, thickness, ftopoff], [-width/2, edge, lead],
+                // top: 16 : 19
+                [-ridge/2, thickness, topfrnt], [ridge/2, thickness, topfrnt], [ridge/2, thickness, toprear], [-ridge/2, thickness, toprear],
+            ],
+            triangles = [
+                // base: 0 : 3
+                [1, 0, 2], [2, 0, 5], [5, 4, 3], [5, 3, 2],
+                // front: 4, 5
+                [1, 7, 6], [6, 0, 1],
+                // right,front: 6,7
+                [2, 7, 1], [7, 2, 8],
+                // right: 8 : 11
+                [8, 2, 9], [3, 11, 10], [10, 9, 2], [10, 2, 3],
+                // back: 12, 13
+                [11, 3, 12], [12, 3, 4],
+                // left: 14 : 17
+                [4, 5, 13], [13, 12, 4], [5, 14, 13], [5, 15, 14],
+                // left,front: 18,19
+                [15, 5, 0], [6, 15, 0],
+                // top,left: 20 : 24
+                [15, 6, 16], [15, 16, 14], [16, 19, 14], [13, 14, 19], [13, 19, 12],
+                // top, back: 25, 26
+                [19, 18, 12], [12, 18, 11],
+                // top,right: 27 : 31
+                [11, 18, 10], [10, 18, 9], [9, 18, 17], [9, 17, 8], [8, 17, 7],
+                // top, front: 32, 33
+                [6, 7, 17], [17, 16, 6],
+                // top: 34, 35
+                [16, 17, 19], [17, 18, 19],
+            ]
+        );
+        translate([0, 0, 6.78/2+length-2.82]) union() {
+            cube( 6.78, center=true );
+           translate([2,-1,-(6.78-6.25)/2]) rotate( [0, 18, 0] ) cube( 5, center=true );
+           translate([-2,-1,-(6.78-6.25)/2]) rotate( [0, -18, 0] ) cube( 5, center=true );
+        }
+    }
 }
 
 module mid_supports(dx,y,z) {
