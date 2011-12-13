@@ -15,7 +15,7 @@ offset=3;
 
 barrel_diam=2.5;
 flash=3.5;
-barrel_len=0.6*depth;
+barrel_len=0.65*depth;
 
 union() {
     body();
@@ -170,10 +170,10 @@ module fuel_tank() {
 module top_guns( diam, len, flash ) {
     xoffset=width/2+diam;
     yoffset=-3*diam/2;
-    zoffset=offset;
+    zoffset=diam/2;
 
     // forward gun support
-    translate( [0, yoffset, len-flash-diam] ) cube( [xoffset*2+3*diam/2, 1.25*diam, flash], center=true );
+    translate( [0, yoffset, len-flash-2*diam] ) cube( [xoffset*2+3*diam/2, 1.25*diam, flash], center=true );
     // rear gun support
     translate( [0, yoffset, 6] ) cube( [xoffset*2+3*diam/2, 1.25*diam, diam], center=true );
 
@@ -186,7 +186,7 @@ module barrel(diam,len,flash) {
             union() {
                  cylinder(r=diam/2, h=len);
                  translate( [0, 0, len-(flash+1)] ) cylinder(r=flash/2, h=flash);
-                 translate( [0, 0, -offset] ) cylinder( h=offset, r1=0.5, r2=diam/2 );
+                 sphere( r=diam/2 );
            }
            translate( [0, 0, len] ) rotate( [180, 0, 0] ) nozzle( diam, diam/2-0.45 );
      }
