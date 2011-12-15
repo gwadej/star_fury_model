@@ -25,7 +25,7 @@ union() {
     translate( [7,0.4*middleheight,6] ) fuel_tank();
     translate( [-7,0.4*middleheight,6] ) fuel_tank();
     undercarriage( barrel_diam, mid+point/2, flash );
-  //  mid_supports( 7, 0.4*middleheight, 5 );
+    translate( [0,middleheight/2,0] ) lower_support();
 }
 
 module body() {
@@ -90,8 +90,9 @@ module body() {
 }
 
 module upper_support() {
-    thickness=-6.48;
-    edge=-2;
+    thickness=6.48;
+    edge=2;
+    gap=6.78;
     length=48.72;
     width=27.67;
     //middle=10.17;
@@ -109,15 +110,15 @@ module upper_support() {
                 // base: 0 : 5
                 [-frontwidth/2, 0, length], [frontwidth/2, 0, length], [width/2, 0, lead], [width/2, 0, 0], [-width/2, 0, 0], [-width/2, 0, lead],
                 // front: 6, 7
-                [-frontwidth/2, edge, length], [frontwidth/2, edge, length],
+                [-frontwidth/2, -edge, length], [frontwidth/2, -edge, length],
                 // right: 8 : 10
-                [width/2, edge, lead], [width/2, thickness, ftopoff], [width/2, thickness, topoff],
+                [width/2, -edge, lead], [width/2, -thickness, ftopoff], [width/2, -thickness, topoff],
                 // rear: 11, 12
-                [width/2, edge, 0], [-width/2, edge, 0],
+                [width/2, -edge, 0], [-width/2, -edge, 0],
                 // left: 13 : 15
-                [-width/2, thickness, topoff], [-width/2, thickness, ftopoff], [-width/2, edge, lead],
+                [-width/2, -thickness, topoff], [-width/2, -thickness, ftopoff], [-width/2, -edge, lead],
                 // top: 16 : 19
-                [-ridge/2, thickness, topfrnt], [ridge/2, thickness, topfrnt], [ridge/2, thickness, toprear], [-ridge/2, thickness, toprear],
+                [-ridge/2, -thickness, topfrnt], [ridge/2, -thickness, topfrnt], [ridge/2, -thickness, toprear], [-ridge/2, -thickness, toprear],
             ],
             triangles = [
                 // base: 0 : 3
@@ -146,10 +147,10 @@ module upper_support() {
                 [16, 17, 19], [17, 18, 19],
             ]
         );
-        translate([0, 0, 6.78/2+length-2.82]) union() {
-            cube( 6.78, center=true );
-           translate([2,-1,-(6.78-6.25)/2]) rotate( [0, 18, 0] ) cube( 5, center=true );
-           translate([-2,-1,-(6.78-6.25)/2]) rotate( [0, -18, 0] ) cube( 5, center=true );
+        translate([0, 0, gap/2+length-2.82]) union() {
+            cube( gap, center=true );
+           translate([2,-1,-(gap-6.25)/2]) rotate( [0, 18, 0] ) cube( 5, center=true );
+           translate([-2,-1,-(gap-6.25)/2]) rotate( [0, -18, 0] ) cube( 5, center=true );
         }
     }
 }
@@ -182,10 +183,11 @@ module top_guns( diam, len, flash ) {
     translate( [ xoffset, yoffset, zoffset] ) barrel( diam, len, flash );
 }
 
-module lower_guns( diam, len, flash ) {
+module lower_guns( diam, body_len, flash ) {
     xoffset=bottomwidth/2+3*diam/2;
     yoffset=middleheight;
-    zoffset=diam/2;
+    zoffset=3.5*diam;
+    len=body_len-3*diam;
 
     // forward gun support
     translate( [0, yoffset, len-flash-diam] ) cube( [xoffset*2+3*diam/2, 1.25*diam, flash], center=true );
@@ -193,12 +195,16 @@ module lower_guns( diam, len, flash ) {
     translate( [0, yoffset, len/2] ) cube( [xoffset*2+2*diam, 2*diam, 2*diam], center=true );
     translate( [-xoffset, yoffset, zoffset] ) union() {
         barrel( diam, len, flash );
-        translate([0,0,3*diam]) cylinder( r=diam, h=len/2 );
+        cylinder( r=diam, h=len/2 );
+        sphere( r=diam );
     }
+    translate([-bottomwidth/2,yoffset-diam,offset+diam/2]) rotate( [0,-45,-40] ) cylinder( r=diam/2, h=2*diam );
     translate( [ xoffset, yoffset, zoffset] ) union() {
         barrel( diam, len, flash );
-        translate([0,0,3*diam]) cylinder( r=diam, h=len/2 );
+        cylinder( r=diam, h=len/2 );
+        sphere( r=diam );
     }
+    translate([bottomwidth/2,yoffset-diam,offset+diam/2]) rotate( [0,45,40] ) cylinder( r=diam/2, h=2*diam );
 }
 
 module undercarriage(diam,len,flash) {
@@ -212,6 +218,64 @@ module undercarriage(diam,len,flash) {
             translate( [-bottomwidth/2,yoffset+bottomwidth/8,mid] ) rotate([-45,0,0]) cube([bottomwidth,2*bottomwidth,bottomwidth]);
         }
     }
+}
+
+module lower_support() {
+    thickness=6.48;
+    edge=2;
+    gap=6.78;
+    length=45;
+    width=27.67;
+    frontwidth=13.55;
+    toprear=15.39;
+    topfrnt=32.06;
+    lead=33.33;
+    topoff=10.26;
+    ftopoff=lead-topoff;
+    ridge=12.42;
+
+    rotate([0,0,180]) polyhedron(
+        points = [
+            // base: 0 : 5
+            [-frontwidth/2, 0, length], [frontwidth/2, 0, length], [width/2, 0, lead], [width/2, 0, 0], [-width/2, 0, 0], [-width/2, 0, lead],
+            // front: 6, 7
+            [-frontwidth/2, -edge, length], [frontwidth/2, -edge, length],
+            // right: 8 : 10
+            [width/2, -edge, lead], [width/2, -thickness, ftopoff], [width/2, -thickness, topoff],
+            // rear: 11, 12
+            [width/2, -edge, 0], [-width/2, -edge, 0],
+            // left: 13 : 15
+            [-width/2, -thickness, topoff], [-width/2, -thickness, ftopoff], [-width/2, -edge, lead],
+            // top: 16 : 19
+            [-ridge/2, -thickness, topfrnt], [ridge/2, -thickness, topfrnt], [ridge/2, -thickness, toprear], [-ridge/2, -thickness, toprear],
+        ],
+        triangles = [
+            // base: 0 : 3
+            [1, 0, 2], [2, 0, 5], [5, 4, 3], [5, 3, 2],
+            // front: 4, 5
+            [1, 7, 6], [6, 0, 1],
+            // right,front: 6,7
+            [2, 7, 1], [7, 2, 8],
+            // right: 8 : 11
+            [8, 2, 9], [3, 11, 10], [10, 9, 2], [10, 2, 3],
+            // back: 12, 13
+            [11, 3, 12], [12, 3, 4],
+            // left: 14 : 17
+            [4, 5, 13], [13, 12, 4], [5, 14, 13], [5, 15, 14],
+            // left,front: 18,19
+            [15, 5, 0], [6, 15, 0],
+            // top,left: 20 : 24
+            [15, 6, 16], [15, 16, 14], [16, 19, 14], [13, 14, 19], [13, 19, 12],
+            // top, back: 25, 26
+            [19, 18, 12], [12, 18, 11],
+            // top,right: 27 : 31
+            [11, 18, 10], [10, 18, 9], [9, 18, 17], [9, 17, 8], [8, 17, 7],
+            // top, front: 32, 33
+            [6, 7, 17], [17, 16, 6],
+            // top: 34, 35
+            [16, 17, 19], [17, 18, 19],
+        ]
+    );
 }
 
 module barrel(diam,len,flash) {
