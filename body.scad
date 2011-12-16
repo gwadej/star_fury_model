@@ -25,7 +25,7 @@ union() {
     translate( [7,0.4*middleheight,6] ) fuel_tank();
     translate( [-7,0.4*middleheight,6] ) fuel_tank();
     undercarriage( barrel_diam, mid+point/2, flash );
-    translate( [0,middleheight/2,0] ) lower_support();
+    translate( [0,0.6*middleheight,0] ) lower_support();
 }
 
 module body() {
@@ -175,7 +175,7 @@ module top_guns( diam, len, flash ) {
     zoffset=diam/2;
 
     // forward gun support
-    translate( [0, yoffset, len-flash-2*diam] ) cube( [xoffset*2+3*diam/2, 1.25*diam, flash], center=true );
+    translate( [0, yoffset, len-flash-1.5*diam] ) cube( [xoffset*2+3*diam/2, 1.25*diam, 2*diam], center=true );
     // rear gun support
     translate( [0, yoffset, 6] ) cube( [xoffset*2+3*diam/2, 1.25*diam, diam], center=true );
 
@@ -190,7 +190,7 @@ module lower_guns( diam, body_len, flash ) {
     len=body_len-3*diam;
 
     // forward gun support
-    translate( [0, yoffset, len-flash-diam] ) cube( [xoffset*2+3*diam/2, 1.25*diam, flash], center=true );
+    translate( [0, yoffset, len-flash] ) cube( [xoffset*2+3*diam/2, 1.25*diam, 2*diam], center=true );
     // rear gun support
     translate( [0, yoffset, len/2] ) cube( [xoffset*2+2*diam, 2*diam, 2*diam], center=true );
     translate( [-xoffset, yoffset, zoffset] ) union() {
@@ -224,9 +224,9 @@ module lower_support() {
     thickness=6.48;
     edge=2;
     gap=6.78;
-    length=45;
+    length=43;
     width=27.67;
-    frontwidth=13.55;
+    frontwidth=10;
     toprear=15.39;
     topfrnt=32.06;
     lead=33.33;
@@ -234,46 +234,46 @@ module lower_support() {
     ftopoff=lead-topoff;
     ridge=12.42;
 
-    rotate([0,0,180]) polyhedron(
+    polyhedron(
         points = [
             // base: 0 : 5
             [-frontwidth/2, 0, length], [frontwidth/2, 0, length], [width/2, 0, lead], [width/2, 0, 0], [-width/2, 0, 0], [-width/2, 0, lead],
             // front: 6, 7
-            [-frontwidth/2, -edge, length], [frontwidth/2, -edge, length],
+            [-frontwidth/2, edge, length], [frontwidth/2, edge, length],
             // right: 8 : 10
-            [width/2, -edge, lead], [width/2, -thickness, ftopoff], [width/2, -thickness, topoff],
+            [width/2, edge, lead], [width/2, thickness, ftopoff], [width/2, thickness, topoff],
             // rear: 11, 12
-            [width/2, -edge, 0], [-width/2, -edge, 0],
+            [width/2, edge, 0], [-width/2, edge, 0],
             // left: 13 : 15
-            [-width/2, -thickness, topoff], [-width/2, -thickness, ftopoff], [-width/2, -edge, lead],
+            [-width/2, thickness, topoff], [-width/2, thickness, ftopoff], [-width/2, edge, lead],
             // top: 16 : 19
-            [-ridge/2, -thickness, topfrnt], [ridge/2, -thickness, topfrnt], [ridge/2, -thickness, toprear], [-ridge/2, -thickness, toprear],
+            [-ridge/2, thickness, topfrnt], [ridge/2, thickness, topfrnt], [ridge/2, thickness, toprear], [-ridge/2, thickness, toprear],
         ],
         triangles = [
             // base: 0 : 3
-            [1, 0, 2], [2, 0, 5], [5, 4, 3], [5, 3, 2],
+            [2, 0, 1], [5, 0, 2], [3, 4, 5], [2, 3, 5],
             // front: 4, 5
-            [1, 7, 6], [6, 0, 1],
+            [6, 7, 1], [1, 0, 6],
             // right,front: 6,7
-            [2, 7, 1], [7, 2, 8],
+            [1, 7, 2], [8, 2, 7],
             // right: 8 : 11
-            [8, 2, 9], [3, 11, 10], [10, 9, 2], [10, 2, 3],
+            [9, 2, 8], [10, 11, 3], [2, 9, 10], [3, 2, 10],
             // back: 12, 13
-            [11, 3, 12], [12, 3, 4],
+            [12, 3, 11], [4, 3, 12],
             // left: 14 : 17
-            [4, 5, 13], [13, 12, 4], [5, 14, 13], [5, 15, 14],
+            [13, 5, 4], [4, 12, 13], [13, 14, 5], [14, 15, 5],
             // left,front: 18,19
-            [15, 5, 0], [6, 15, 0],
+            [0, 5, 15], [0, 15, 6],
             // top,left: 20 : 24
-            [15, 6, 16], [15, 16, 14], [16, 19, 14], [13, 14, 19], [13, 19, 12],
+            [16, 6, 15], [14, 16, 15], [14, 19, 16], [19, 14, 13], [12, 19, 13],
             // top, back: 25, 26
-            [19, 18, 12], [12, 18, 11],
+            [12, 18, 19], [11, 18, 12],
             // top,right: 27 : 31
-            [11, 18, 10], [10, 18, 9], [9, 18, 17], [9, 17, 8], [8, 17, 7],
+            [10, 18, 11], [9, 18, 10], [17, 18, 9], [8, 17, 9], [7, 17, 8],
             // top, front: 32, 33
-            [6, 7, 17], [17, 16, 6],
+            [17, 7, 6], [6, 16, 17],
             // top: 34, 35
-            [16, 17, 19], [17, 18, 19],
+            [19, 17, 16], [19, 18, 17],
         ]
     );
 }
