@@ -172,15 +172,21 @@ module fuel_tank() {
 module top_guns( diam, len, flash ) {
     xoffset=width/2+diam;
     yoffset=-3*diam/2;
-    zoffset=diam/2;
+    zoffset=4;
 
     // forward gun support
     translate( [0, yoffset, len-flash-1.5*diam] ) cube( [xoffset*2+3*diam/2, 1.25*diam, 2*diam], center=true );
     // rear gun support
-    translate( [0, yoffset, 6] ) cube( [xoffset*2+3*diam/2, 1.25*diam, diam], center=true );
+    translate( [0, yoffset, 6] ) cube( [xoffset*2+3*diam/2, 1.6*diam, diam], center=true );
 
-    translate( [-xoffset, yoffset, zoffset] ) barrel( diam, len, flash );
-    translate( [ xoffset, yoffset, zoffset] ) barrel( diam, len, flash );
+    translate( [-xoffset, yoffset, 0] ) union() {
+        translate( [0, 0, zoffset] ) barrel( diam, len, flash,1.5*diam );
+        cylinder( h=zoffset-diam/2, r1=1.5*diam, r2=0.2 );
+    };
+    translate( [ xoffset, yoffset, 0] ) union() {
+        translate( [ 0, 0, zoffset] ) barrel( diam, len, flash, 1.5*diam );
+        cylinder( h=zoffset-diam/2, r1=1.5*diam, r2=0.2 );
+    };
 }
 
 module lower_guns( diam, body_len, flash ) {
@@ -193,18 +199,14 @@ module lower_guns( diam, body_len, flash ) {
     translate( [0, yoffset, len-flash] ) cube( [xoffset*2+3*diam/2, 1.25*diam, 2*diam], center=true );
     // rear gun support
     translate( [0, yoffset, len/2] ) cube( [xoffset*2+2*diam, 2*diam, 2*diam], center=true );
-    translate( [-xoffset, yoffset, zoffset] ) union() {
-        barrel( diam, len, flash );
-        cylinder( r=diam, h=len/2 );
-        sphere( r=diam );
-    }
-    translate([-bottomwidth/2,yoffset-diam,offset+diam/2]) rotate( [0,-45,-40] ) cylinder( r=diam/2, h=2*diam );
-    translate( [ xoffset, yoffset, zoffset] ) union() {
-        barrel( diam, len, flash );
-        cylinder( r=diam, h=len/2 );
-        sphere( r=diam );
-    }
-    translate([bottomwidth/2,yoffset-diam,offset+diam/2]) rotate( [0,45,40] ) cylinder( r=diam/2, h=2*diam );
+    translate( [-xoffset, yoffset, 0] ) union() {
+        translate( [0, 0, zoffset] ) barrel( diam, len, flash, 2*diam );
+        cylinder( h=zoffset-diam/2, r1=1.25*diam, r2=0.2 );
+    };
+    translate( [ xoffset, yoffset, 0] ) union() {
+        translate( [ 0, 0, zoffset] ) barrel( diam, len, flash, 2*diam );
+        cylinder( h=zoffset-diam/2, r1=1.25*diam, r2=0.2 );
+    };
 }
 
 module undercarriage(diam,len,flash) {
@@ -278,12 +280,13 @@ module lower_support() {
     );
 }
 
-module barrel(diam,len,flash) {
+module barrel(diam,len,flash,diam2) {
       difference() {
             union() {
                  cylinder(r=diam/2, h=len);
                  translate( [0, 0, len-(flash+1)] ) cylinder(r=flash/2, h=flash);
-                 sphere( r=diam/2 );
+                 cylinder(r=diam2/2, h=len/2);
+                 sphere( r=diam2/2 );
            }
            translate( [0, 0, len] ) rotate( [180, 0, 0] ) nozzle( diam, diam/2-0.45 );
      }
