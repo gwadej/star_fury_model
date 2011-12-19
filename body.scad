@@ -25,7 +25,7 @@ union() {
     translate( [7,0.4*middleheight,6] ) fuel_tank();
     translate( [-7,0.4*middleheight,6] ) fuel_tank();
     undercarriage( barrel_diam, mid+point/2, flash );
-    translate( [0,0.6*middleheight,0] ) lower_support();
+    translate( [0,0.4*middleheight,0] ) lower_support();
 }
 
 module body() {
@@ -235,19 +235,21 @@ module lower_support() {
     topoff=10.26;
     ftopoff=lead-topoff;
     ridge=12.42;
+    xshift=(width-ridge)/2*(1-cos(23));
+    yshift=(width-ridge)/2*sin(23);
 
     polyhedron(
         points = [
             // base: 0 : 5
-            [-frontwidth/2, 0, length], [frontwidth/2, 0, length], [width/2, 0, lead], [width/2, 0, 0], [-width/2, 0, 0], [-width/2, 0, lead],
+            [-frontwidth/2, 0, length], [frontwidth/2, 0, length], [width/2, yshift, lead], [width/2, yshift, 0], [-width/2, yshift, 0], [-width/2, yshift, lead],
             // front: 6, 7
             [-frontwidth/2, edge, length], [frontwidth/2, edge, length],
             // right: 8 : 10
-            [width/2, edge, lead], [width/2, thickness, ftopoff], [width/2, thickness, topoff],
+            [width/2-xshift, edge+yshift, lead], [width/2-xshift, thickness+yshift, ftopoff], [width/2-xshift, thickness+yshift, topoff],
             // rear: 11, 12
-            [width/2, edge, 0], [-width/2, edge, 0],
+            [width/2-xshift, edge+yshift, 0], [-width/2+xshift, edge+yshift, 0],
             // left: 13 : 15
-            [-width/2, thickness, topoff], [-width/2, thickness, ftopoff], [-width/2, edge, lead],
+            [-width/2+xshift, thickness+yshift, topoff], [-width/2+xshift, thickness+yshift, ftopoff], [-width/2+xshift, edge+yshift, lead],
             // top: 16 : 19
             [-ridge/2, thickness, topfrnt], [ridge/2, thickness, topfrnt], [ridge/2, thickness, toprear], [-ridge/2, thickness, toprear],
         ],
