@@ -181,11 +181,11 @@ module top_guns( diam, len, flash ) {
 
     translate( [-xoffset, yoffset, 0] ) union() {
         translate( [0, 0, zoffset] ) barrel( diam, len, flash,1.5*diam );
-        cylinder( h=zoffset-diam/2, r1=1.5*diam, r2=0.2 );
+        cylinder( h=zoffset-0.75*diam, r1=1.5*diam, r2=0.2 );
     };
     translate( [ xoffset, yoffset, 0] ) union() {
         translate( [ 0, 0, zoffset] ) barrel( diam, len, flash, 1.5*diam );
-        cylinder( h=zoffset-diam/2, r1=1.5*diam, r2=0.2 );
+        cylinder( h=zoffset-0.75*diam, r1=1.5*diam, r2=0.2 );
     };
 }
 
@@ -201,11 +201,11 @@ module lower_guns( diam, body_len, flash ) {
     translate( [0, yoffset, len/2] ) cube( [xoffset*2+2*diam, 2*diam, 2*diam], center=true );
     translate( [-xoffset, yoffset, 0] ) union() {
         translate( [0, 0, zoffset] ) barrel( diam, len, flash, 2*diam );
-        cylinder( h=zoffset-diam/2, r1=1.25*diam, r2=0.2 );
+        cylinder( h=zoffset-diam, r1=1.25*diam, r2=0.2 );
     };
     translate( [ xoffset, yoffset, 0] ) union() {
         translate( [ 0, 0, zoffset] ) barrel( diam, len, flash, 2*diam );
-        cylinder( h=zoffset-diam/2, r1=1.25*diam, r2=0.2 );
+        cylinder( h=zoffset-diam, r1=1.25*diam, r2=0.3 );
     };
 }
 
