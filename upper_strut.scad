@@ -23,11 +23,11 @@ module strut() {
         polyhedron(
             points = [
                 // base: 0 : 3
-                [0, base_len/2, 0], [0, -base_len/2, 0], [width, -tip_len/2-width*cos(28), 0], [width, tip_len/2-width*cos(34), 0],
+                [0, base_len/2, 0], [0, -base_len/2, 0], [width, -tip_len/2-width*sin(28), 0], [width, tip_len/2-width*sin(34), 0],
                 // top, right: 4 : 7
                 [0, base_len/2, edge], [0, base_len/2-topoff, base_thick], [0, -base_len/2+topoff, base_thick], [0, -base_len/2, edge],
                 // top, left: 8 : 11
-                [width, -tip_len/2-width*cos(28), edge], [width, -tip_len/2+topoff-width*cos(28), tip_thick], [width, tip_len/2-topoff-width*cos(34), tip_thick], [width, tip_len/2-width*cos(34), edge],
+                [width, -tip_len/2-width*sin(28), edge], [width, -tip_len/2+topoff-width*sin(28), tip_thick], [width, tip_len/2-topoff-width*sin(34), tip_thick], [width, tip_len/2-width*sin(34), edge],
             ],
             triangles = [
                 //base:0,1
@@ -48,7 +48,7 @@ module strut() {
                 [6, 7, 9], [7, 8, 9],
             ]
         );
-        translate([0.4*back_base*cos(-38),-base_len*sin(38)-0.38*back_len,0]) rotate([0,0,-38]) polyhedron(
+        translate([1.25*back_len*cos(38),-base_len*sin(38),0]) rotate([0,0,-24]) polyhedron(
             points = [
                 [-back_base/2, back_len/2, 0], [back_base/2, back_len/2, 0], [inner_tip, -back_len/2, 0], [outer_tip, -back_len/2, 0],
                 [-back_base/2, back_len/2, edge], [back_base/2, back_len/2, edge], [inner_tip, -back_len/2, edge/2], [outer_tip, -back_len/2, edge/2],
