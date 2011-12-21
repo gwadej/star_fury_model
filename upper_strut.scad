@@ -15,15 +15,19 @@ translate([ 5,0,0]) strut();
 translate([-5,0,0]) mirror([1,0,0]) strut();
 
 module strut() {
+    ifrac=0.8;
+    ofrac=1-ifrac;
+    inner_tip=ifrac*back_tip;
+    outer_tip=-ofrac*back_tip;
     union() {
-     %  polyhedron(
+        polyhedron(
             points = [
                 // base: 0 : 3
-                [0, base_len/2, 0], [0, -base_len/2, 0], [width, -base_len/2-width*cos(28), 0], [width, base_len/2-width*cos(34), 0],
+                [0, base_len/2, 0], [0, -base_len/2, 0], [width, -tip_len/2-width*cos(28), 0], [width, tip_len/2-width*cos(34), 0],
                 // top, right: 4 : 7
                 [0, base_len/2, edge], [0, base_len/2-topoff, base_thick], [0, -base_len/2+topoff, base_thick], [0, -base_len/2, edge],
                 // top, left: 8 : 11
-                [width, -base_len/2-width*cos(28), edge], [width, -base_len/2+topoff-width*cos(28), tip_thick], [width, base_len/2-topoff-width*cos(34), tip_thick], [width, base_len/2-width*cos(34), edge],
+                [width, -tip_len/2-width*cos(28), edge], [width, -tip_len/2+topoff-width*cos(28), tip_thick], [width, tip_len/2-topoff-width*cos(34), tip_thick], [width, tip_len/2-width*cos(34), edge],
             ],
             triangles = [
                 //base:0,1
@@ -44,13 +48,24 @@ module strut() {
                 [6, 7, 9], [7, 8, 9],
             ]
         );
-        translate([back_base/2*cos(-38),-base_len*sin(38)-back_len/2,0]) rotate([0,0,-38]) linear_extrude(height=edge) polygon(
+        translate([0.4*back_base*cos(-38),-base_len*sin(38)-0.38*back_len,0]) rotate([0,0,-38]) polyhedron(
             points = [
-                [-back_base/2, back_len/2], [back_base/2, back_len/2], [back_tip/2, -back_len/2], [-back_tip/2, -back_len/2],
+                [-back_base/2, back_len/2, 0], [back_base/2, back_len/2, 0], [inner_tip, -back_len/2, 0], [outer_tip, -back_len/2, 0],
+                [-back_base/2, back_len/2, edge], [back_base/2, back_len/2, edge], [inner_tip, -back_len/2, edge/2], [outer_tip, -back_len/2, edge/2],
             ],
-            path = [
-                // base
+            triangles = [
+                // base: 0, 1
                 [1, 0, 3], [3, 2, 1],
+                // front; 2, 3
+                [0, 1, 5], [5, 4, 0],
+                // left: 4, 5
+                [0, 4, 7], [7, 3, 0],
+                // back: 6, 7
+                [3, 7, 6], [6, 2, 3],
+                // right: 8, 9
+                [2, 6, 5], [5, 1, 2],
+                // top: 10, 11
+                [4, 5, 6], [6, 7, 4],
             ]
         );
     }
