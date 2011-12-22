@@ -23,9 +23,9 @@ module strut() {
         polyhedron(
             points = [
                 // base: 0 : 3
-                [0, base_len/2, 0], [0, -base_len/2, 0], [width, -tip_len/2-width*sin(28), 0], [width, tip_len/2-width*sin(34), 0],
+                [-base_thick*sin(12.5), base_len/2, 0], [-base_thick*sin(12.5), -base_len/2, 0], [width, -tip_len/2-width*sin(28), 0], [width, tip_len/2-width*sin(34), 0],
                 // top, right: 4 : 7
-                [0, base_len/2, edge], [0, base_len/2-topoff, base_thick], [0, -base_len/2+topoff, base_thick], [0, -base_len/2, edge],
+                [-(base_thick-edge)*sin(12.5), base_len/2, edge], [0, base_len/2-topoff, base_thick], [0, -base_len/2+topoff, base_thick], [-(base_thick-edge)*sin(12.5), -base_len/2, edge],
                 // top, left: 8 : 11
                 [width, -tip_len/2-width*sin(28), edge], [width, -tip_len/2+topoff-width*sin(28), tip_thick], [width, tip_len/2-topoff-width*sin(34), tip_thick], [width, tip_len/2-width*sin(34), edge],
             ],
