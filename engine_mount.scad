@@ -14,7 +14,7 @@ module mount() {
         rotate([-90,0,0])
         linear_extrude( height=edge ) polygon(
             points = [
-                [0, 0], [depth,0], [0, -depth]
+                [0, 0], [0.65*depth,-0.35*depth], [0, -depth]
             ],
             paths = [ [0, 1, 2] ]
         );

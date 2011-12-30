@@ -17,7 +17,7 @@ union() {
     forward_assembly();
     main_body();
     rear_assembly(eng_rad);
-    translate([-0.4*eng_smrad,1,mainoffset]) rotate( [0,-90,-90-23] ) mirror([0,1,0]) mount();
+    translate([-0.44*eng_smrad,1.8,mainoffset]) rotate( [0,-90,-90-23] ) mirror([0,1,0]) mount();
 }
 
 module forward_assembly() {
