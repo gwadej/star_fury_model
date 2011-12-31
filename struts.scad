@@ -11,8 +11,11 @@ back_base=14*width/45;
 back_tip=8.5*width/45;
 back_len=5.4*width/45;
 
-translate([ 5,0,0]) strut();
-translate([-5,0,0]) mirror([1,0,0]) strut();
+translate([ 5,0.7*base_len,0]) strut();
+translate([-5,0.7*base_len,0]) mirror([1,0,0]) strut();
+
+translate([ 5,-0.6*base_len,0]) strut();
+translate([-5,-0.6*base_len,0]) mirror([1,0,0]) strut();
 
 module strut() {
     ifrac=0.8;
