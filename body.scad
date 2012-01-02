@@ -17,6 +17,11 @@ barrel_diam=2.5;
 flash=3.5;
 barrel_len=0.65*depth;
 
+// cockpit
+thick=1;
+tl_angle1=70;
+cockpit_height=20;
+
 union() {
     body();
     top_guns( barrel_diam, barrel_len, flash );
@@ -28,7 +33,27 @@ union() {
     translate( [0,0.6*middleheight,0] ) lower_support();
 }
 
-module body() {
+module body () {
+    midback=mid-point/2;
+    offset=midback -2;  //midback -2
+    top_angle=57;
+    bot_angle=41;
+    middlewidth=4.9;
+
+    difference() {
+        body_base(midback);
+        translate([0,0,offset]) union() {
+            translate( [0,0,cockpit_height+1.5] ) rotate([top_angle,0,0]) top_center_pane();
+            top_left_pane();
+            mirror([1,0,0]) top_left_pane();
+            translate( [0,0,cockpit_height+0.9] ) rotate([-bot_angle,0,0]) bottom_center_pane();
+            bottom_left_pane();
+            mirror([1,0,0]) bottom_left_pane();
+        }
+    }
+}
+
+module body_base(midback) {
     off=offset;
     bev=off/2;
     toplt=-topwidth/2;
@@ -38,7 +63,6 @@ module body() {
     botlt=-bottomwidth/2;
     botrt=bottomwidth/2;
     top=-topwind;
-    midback=mid-point/2;
     bot=middleheight;
     frntlt=-middlewidth/2;
     frntrt=middlewidth/2;
@@ -289,3 +313,69 @@ module barrel(diam,len,flash,diam2) {
            translate( [0, 0, len] ) rotate( [180, 0, 0] ) nozzle( diam, diam/2-0.45 );
      }
 }
+
+module top_left_pane() {
+    translate( [middlewidth/2+thick*sin(7),-1,cockpit_height-2*thick*cos(tl_angle1)] )
+        rotate([3,0,-7]) rotate([0,tl_angle1,0]) top_side_pane();
+}
+
+module bottom_left_pane() {
+    bl_angle1=71;
+    translate( [middlewidth/2+thick*sin(9),1.5,cockpit_height-3*thick*cos(tl_angle1)] )
+        rotate([-6,0,9]) rotate([0,bl_angle1,0]) bottom_side_pane();
+}
+
+module top_center_pane() {
+    topwid=11-2;
+    botwid=5.5-2;
+    len=15-2;
+    translate([0,-2,-thick/2]) linear_extrude(height=thick) polygon(
+        points= [
+            [-topwid/2,-len],
+            [topwid/2,-len],
+            [botwid/2,0],
+            [-botwid/2,0]
+        ],
+        paths = [ [ 0,1,2,3] ]
+    );
+}
+
+module top_side_pane() {
+    length=19-2;
+    mid=11.5;
+    height=9-2;
+    translate([0,0,-thick/2]) linear_extrude(height=thick) polygon(
+        points = [
+            [0,0], [length,0], [mid,-height],
+        ],
+        paths = [ [0,1,2] ]
+    );
+}
+
+module bottom_center_pane() {
+    topwid=5.5-2;
+    botwid=8-2;
+    len=18.5-2;
+    translate([0,2.2,-thick/2]) linear_extrude(height=thick) polygon(
+        points= [
+            [-topwid/2,0],
+            [topwid/2,0],
+            [botwid/2,len],
+            [-botwid/2,len]
+        ],
+        paths = [ [ 0,1,2,3] ]
+    );
+}
+
+module bottom_side_pane() {
+    length=19-2;
+    mid=10;
+    height=14.5-2;
+    translate([0,0,-thick/2]) linear_extrude(height=thick) polygon(
+        points = [
+            [0,0], [length,0], [mid,height],
+        ],
+        paths = [ [0,1,2] ]
+    );
+}
+
