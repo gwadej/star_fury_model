@@ -9,7 +9,12 @@ gap=0.4*flat;
 slength=56/94*llength;
 swidth=0.75*lwidth;
 
-translate([5, 10, 0]) {
+translate([5, 10, 0]) baffle_pair();
+translate([5, -35, 0]) baffle_pair();
+translate([-40, 10, 0]) baffle_pair();
+translate([-40, -35, 0]) baffle_pair();
+
+module baffle_pair() {
     translate([0, 20, 0]) big_baffle();
     small_baffle();
 }
@@ -43,7 +48,7 @@ module big_baffle() {
         baffle(llength, lwidth);
         translate([0,0,thickness-0.1]) rib(llength*0.5, rad, 0.75*gap/2);
         translate([llength/6,0,thickness+rad]) rotate([90,0,0]) cylinder(r=rad, h=2*flat/3, center=true);
-        translate([llength/6,0,thickness+2*rad]) cylinder(r=0.5, h=1.5, center=true);
+        translate([llength/6,0,thickness+2*rad]) cube([1,2,1.5], center=true);
     }
 }
 
@@ -53,7 +58,7 @@ module small_baffle() {
         baffle(slength, swidth);
         translate([0,0,thickness-0.1]) rib(slength*0.5, rad, gap/4);
         translate([slength/6,0,thickness+rad]) rotate([90,0,0]) cylinder(r=rad, h=flat/3, center=true);
-        translate([slength/6,0,thickness+2*rad]) cylinder(r=0.5, h=1.5, center=true);
+        translate([slength/6,0,thickness+2*rad]) cube([1,1.5,1.5], center=true);
     }
 }
 

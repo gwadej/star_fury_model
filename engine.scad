@@ -16,11 +16,15 @@ tip_len=30.3;
 engine();
 
 module engine() {
-    union() {
-        forward_assembly();
-        main_body();
-        rear_assembly(eng_rad);
-        translate([-0.44*eng_smrad,1.8,mainoffset]) rotate( [0,-90,-90-23] ) mirror([0,1,0]) mount();
+    difference() {
+        union() {
+            forward_assembly();
+            main_body();
+            rear_assembly(eng_rad);
+            translate([-0.44*eng_smrad,1.8,mainoffset]) rotate( [0,-90,-90-23] ) mirror([0,1,0]) mount();
+        }
+        rotate([0,0,-23]) translate([0,-9,9.5]) rotate([90,0,0]) cube( [2.5,1.5,5], center=true );
+        rotate([0,0,-23]) translate([0,9,10]) rotate([90,0,0]) cube( [1.75,1.5,5], center=true );
     }
 }
 
