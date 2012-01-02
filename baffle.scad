@@ -43,6 +43,7 @@ module big_baffle() {
         baffle(llength, lwidth);
         translate([0,0,thickness-0.1]) rib(llength*0.5, rad, 0.75*gap/2);
         translate([llength/6,0,thickness+rad]) rotate([90,0,0]) cylinder(r=rad, h=2*flat/3, center=true);
+        translate([llength/6,0,thickness+2*rad]) cylinder(r=0.5, h=1.5, center=true);
     }
 }
 
@@ -52,6 +53,7 @@ module small_baffle() {
         baffle(slength, swidth);
         translate([0,0,thickness-0.1]) rib(slength*0.5, rad, gap/4);
         translate([slength/6,0,thickness+rad]) rotate([90,0,0]) cylinder(r=rad, h=flat/3, center=true);
+        translate([slength/6,0,thickness+2*rad]) cylinder(r=0.5, h=1.5, center=true);
     }
 }
 
