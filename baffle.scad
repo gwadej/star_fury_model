@@ -17,6 +17,7 @@ module baffle_pair() {
 }
 
 module baffle( len, wid ) {
+    groove_offset=flat/2+thickness/2;
     difference() {
         linear_extrude( height=thickness ) polygon(
             points = [
@@ -33,8 +34,8 @@ module baffle( len, wid ) {
                 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
             ]
         );
-        translate([0,0,thickness]) rotate([0, 90, 0]) translate([0, flat/2,len*0.872/2-0.1] ) cube( [thickness, thickness, len*0.872], center=true );
-        translate([0,0,thickness]) rotate([0, 90, 0]) translate([0,-flat/2,len*0.872/2-0.1] ) cube( [thickness, thickness, len*0.872], center=true );
+        translate([0,0,0.9*thickness]) rotate([0, 90, 0]) translate([0, groove_offset,len*0.872/2-0.1] ) cube( [thickness, thickness, len*0.872], center=true );
+        translate([0,0,0.9*thickness]) rotate([0, 90, 0]) translate([0,-groove_offset,len*0.872/2-0.1] ) cube( [thickness, thickness, len*0.872], center=true );
         translate([len*0.872,0,thickness]) rotate([90,0,0]) cube( [thickness, thickness, wid], center=true );
     }
 }
