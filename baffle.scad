@@ -9,10 +9,7 @@ gap=0.4*flat;
 slength=56/94*llength;
 swidth=0.75*lwidth;
 
-translate([5, 10, 0]) baffle_pair();
-translate([5, -35, 0]) baffle_pair();
-translate([-40, 10, 0]) baffle_pair();
-translate([-40, -35, 0]) baffle_pair();
+baffle_pair();
 
 module baffle_pair() {
     translate([0, 20, 0]) big_baffle();
