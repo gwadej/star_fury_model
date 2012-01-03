@@ -1,26 +1,55 @@
 $fn=30;
 
-base_rad=20;
-pole_height=50;
-pole_rad=5;
+top_len=43;
+top_width=25;
+top_thick=2;
 pin_rad=1.5;
 
 translate([25,0,0]) union() {
-    translate([0,0,1]) cylinder(h=2, r=base_rad, center=true);
-    translate([0,0,5]) cylinder(h=6, r1=base_rad, r2=7, center=true);
-    difference() {
-        translate([0,0,pole_height/2]) cylinder(h=pole_height, r=pole_rad, center=true);
-        translate([0,0,pole_height]) rotate([10,0,0]) cube([pole_rad*4, pole_rad*4,10], center=true );
+    base();
+    shaft();
+}
+translate([-15,0,0]) top();
+
+module base() {
+    base_thick=2;
+    base_rad=20;
+    union() {
+        translate([0,0,base_thick/2]) cylinder(h=base_thick, r=base_rad, center=true);
+        translate([0,0,5]) cylinder(h=6, r1=base_rad, r2=7, center=true);
     }
-    translate([0,0,pole_height-pole_rad]) rotate([10,0,0]) translate([0,0,1]) cylinder(h=4,r=pin_rad,center=true);
 }
 
-translate([-15,0,0]) difference() {
+module shaft() {
+    pole_height=45;
+    pole_rad=5;
     union() {
-        translate([0,0,1.5]) cube([25, 45, 3], center=true);
-        translate([ 5.5,0,4]) cube([5,45,4], center=true);
-        translate([-5.5,0,4]) cube([5,45,4], center=true);
-        translate([0,45/2-1.5,6]) cube([10,3,8], center=true);
+        // pole
+        translate([0,0,pole_height/2]) cylinder(h=pole_height, r=pole_rad, center=true);
+        // pin
+        translate([0,0,pole_height]) translate([0,0,1]) cylinder(h=top_thick+1,r=pin_rad,center=true);
     }
-    cylinder( h=10, r=pin_rad+0.25, center=true );
+}
+
+module top() {
+    difference() {
+        union() {
+            translate([0,-4,1]) cube([10,top_len,2], center=true);
+            translate([0,6,1]) cube([top_width,10,2], center=true);
+            translate([top_width/2-1,6,4]) cube([2,10,4], center=true);
+            translate([-top_width/2+1,6,4]) cube([2,10,4], center=true);
+            rail();
+            mirror([1,0,0]) rail();
+        }
+        cylinder( h=10, r=pin_rad+0.4, center=true );
+        translate([0,-2,5]) cube([top_width,5,5], center=true);
+        translate([0,-20,5]) cube([top_width,5.2,5], center=true);
+    }
+}
+
+module rail() {
+    difference() {
+        translate([4,-4,4]) cube([2,top_len,4], center=true);
+        translate([6,-4,6]) rotate([0,60,0]) cube([4,top_len+2,4], center=true);
+    }
 }
