@@ -35,7 +35,7 @@ union() {
 
 module body () {
     midback=mid-point/2;
-    offset=midback -2;  //midback -2
+    offset=midback -2;
     top_angle=57;
     bot_angle=41;
     middlewidth=4.9;
