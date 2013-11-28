@@ -3,3 +3,5 @@ action
 model
 other
 *.stl
+*.jpg
+*.zip
