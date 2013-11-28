@@ -30,57 +30,66 @@ that are not optimal. One day, I'll go back and fix that.
 The model is separated into several files, each focuses on a different part of
 the model.
 
-## baffle.scad
+### baffle.scad
 
 This file describes that baffle structures that mount on the back portion of
 the main engines of the model.
 
-## baffles\_all.scad
+### baffles\_all.scad
 
 This file generates a single plate that contains all of the baffles.
 
-## body.scad
+### body.scad
 
 This file describes the body of the model.
 
-## engine\_mount.scad
+### engine\_mount.scad
 
 The structure on the side of the engine that connects to the main struts.
 
-## engine.scad
+### engine.scad
 
 One of the four main engines on the model.
 
-## engines4.scad
+### engines4.scad
 
 A printing plate that contains all four engines, ready to print.
 
-## side\_thruster.scad
+### side\_thruster.scad
 
 The nozzle for the perpendicular thrusters on the engines.
 
-## stand.scad
+### stand.scad
 
 A stand for holding the model.
 
-## struts.scad
+### struts.scad
 
 These struts connect the engines to the main body of the model.
 
-## thrusters.scad
+### thrusters.scad
 
 This is a printing plate that contains all eight thruster pieces.
 
-## utils.scad
+### utils.scad
 
 Utilities used while designing the model.
 
-# Future Directions
+## Assembly Notes
+
+The body model has 4 conical supports that snap off. They are just there to
+make printing possible.
+
+The baffles must be printed flat, but they are actually slightly curved. Bend
+the baffles approximately 30 degrees lengthwise at the groves. Bend the end
+*fingers* slightly at the grooves.
+
+## Future Directions
 
 Looking at the model again, two years later, I see a large number of really bad
 design decisions. I need to clean up the OpenSCAD itself pretty substantially.
 
-# License
+## License
 
 This model was released under a Creative Commons - Attribution - Share Alike
 License ([BY-SA](http://creativecommons.org/licenses/by-sa/3.0/)).
