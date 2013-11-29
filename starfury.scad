@@ -5,7 +5,7 @@
 
 include <baffle.scad>;
 include <engine.scad>;
-use <side_thruster.scad>;
+include <side_thruster.scad>;
 include <body.scad>;
 use <stand.scad>;
 include <struts.scad>;

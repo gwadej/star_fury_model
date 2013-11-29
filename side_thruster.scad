@@ -5,6 +5,7 @@
 
 $fn=30;
 
+// nozzle for the thrusters on the sides of the engines
 module thruster() {
     noz=0.45;
     cyllen=2.66;
