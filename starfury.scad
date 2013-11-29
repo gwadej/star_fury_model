@@ -6,9 +6,9 @@ use <body.scad>;
 use <stand.scad>;
 use <struts.scad>;
 
-plate="struts";
+plate="body";
 
-if( plate == "baffle" )
+if( plate == "baffle_pair" )
 {
     baffle_pair();
 }

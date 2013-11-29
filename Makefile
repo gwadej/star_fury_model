@@ -27,8 +27,8 @@ all: $(STLS)
 baffles_all.stl: $(SRCS)
 	$(OPENSCAD) -o $@ -D'plate="baffles_all"' starfury.scad
 
-baffle.stl: $(SRCS)
-	$(OPENSCAD) -o $@ -D'plate="baffle"' starfury.scad
+baffle_pair.stl: $(SRCS)
+	$(OPENSCAD) -o $@ -D'plate="baffle_pair"' starfury.scad
 
 body.stl: $(SRCS)
 	$(OPENSCAD) -o $@ -D'plate="body"' starfury.scad

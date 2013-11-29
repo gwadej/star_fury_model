@@ -15,8 +15,6 @@ eng_rad=9;
 eng_smrad=6.6;
 tip_len=30.3;
 
-engine();
-
 module engine() {
     difference() {
         union() {
