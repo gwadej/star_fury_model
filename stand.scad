@@ -10,6 +10,7 @@ top_width=25;
 pin_rad=1.5;
 pole_height=45;
 
+// Assembled model of the stand. Not intended for printing.
 module assembled_stand()
 {
     union()
@@ -19,6 +20,8 @@ module assembled_stand()
     }
 }
 
+// Model of the main portion of the stand, consisting of the base and the
+//  vertical shaft.
 module stand_main()
 {
     pole_rad=5;
@@ -30,6 +33,7 @@ module stand_main()
     }
 }
 
+// Model of the base of the stand.
 module base() {
     height=6;
     base_thick=2;
@@ -41,6 +45,12 @@ module base() {
     }
 }
 
+// Model of the stand shaft.
+//
+// pole_height - height of the pole
+// pole_rad    - radius of the pole
+// top_thick   - thickness of the top structure
+// pin_rad     - radius of the pin supporting the top structure
 module shaft( pole_height, pole_rad, top_thick, pin_rad ) {
     union() {
         // pole
@@ -50,6 +60,7 @@ module shaft( pole_height, pole_rad, top_thick, pin_rad ) {
     }
 }
 
+// Structure at the top of the stand that actually supports the model.
 module stand_top() {
     difference() {
         union() {
@@ -66,6 +77,7 @@ module stand_top() {
     }
 }
 
+// Model of one of the side rails on the top structure.
 module rail() {
     difference() {
         translate([4,-4,4]) cube([2,top_len,4], center=true);
