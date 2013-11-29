@@ -143,7 +143,7 @@ the output STL files.
 
 ### baffle.scad
 
-This file describes that baffle structures that mount on the back portion of
+This file describes the baffle structures that mount on the back portion of
 the main engines of the model.
 
 ### body.scad
@@ -184,6 +184,13 @@ model.
 
 Looking at the model again, two years later, I see a large number of really bad
 design decisions. I need to clean up the OpenSCAD itself pretty substantially.
+
+Some of the bad design decisions are a result of having been an OpenSCAD novice
+at the time I built the model. I wasn't aware of many ways to reduce duplication.
+The bigger problem is the large number of raw literals in the code. This was
+partly caused by developing the model based on random pictures. Unfortunately,
+most of it was just bad practice. I have been programming long enough to know
+better, but I still made the mistake.
 
 ## License
 
