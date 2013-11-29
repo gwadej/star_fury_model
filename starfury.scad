@@ -6,7 +6,7 @@ use <body.scad>;
 use <stand.scad>;
 use <struts.scad>;
 
-plate="body";
+plate="assembled";
 
 if( plate == "baffle_pair" )
 {
@@ -54,6 +54,6 @@ if( plate == "thrusters" )
 }
 if( plate == "assembled" )
 {
-//    assembled_stand();
-    assembled_body();
+    color( "tan" ) assembled_stand();
+    translate( [ 0, -2.35, 48] ) assembled_body();
 }

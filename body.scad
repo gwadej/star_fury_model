@@ -35,7 +35,7 @@ module complete_body()
     diam=barrel_diam;
     union()
     {
-        assembled_body();
+        main_body();
         // Add in the gun supports.
         for( x = [ -upper_gun_xoff( diam ), upper_gun_xoff( diam ) ] )
             translate( [ x, upper_gun_yoff( diam ), 0 ] )
@@ -46,7 +46,13 @@ module complete_body()
     }
 }
 
+
 module assembled_body()
+{
+    rotate( [-90, 0, 180 ] ) translate( [0, -(middleheight+bottomwidth/2), -mid/2 ] ) main_body();
+}
+
+module main_body()
 {
     union() {
         body();
@@ -262,7 +268,7 @@ module lower_gun_support( zoff, diam )
 
 module undercarriage( diam, len, flash ) {
     xoffset=-3*bottomwidth/8;
-    yoffset=middleheight-1*bottomwidth/4;
+    yoffset=middleheight-bottomwidth/4;
     union () {
         lower_guns( diam, len, flash );
         difference() {
