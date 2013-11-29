@@ -58,10 +58,11 @@ if( plate == "assembled" )
     translate( [ 0, -2.35, 48] ) union()
     {
         assembled_body();
-        translate( [ 16.4, 5.8, 9.13 ] ) rotate( [180, 23.2, 0] ) strut();
-        mirror( [ 1, 0, 0 ] ) translate( [ 16.4, 5.8, 9.13 ] ) rotate( [180, 23.2, 0] ) strut();
 
-        translate( [ -16.4, 5.9, 27.95 ] ) rotate( [0,-23, 180] ) strut();
-        mirror( [ 1, 0, 0 ] ) translate( [ -16.4, 5.9, 27.95 ] ) rotate( [0,-23, 180] ) strut();
+        x_mirrored()
+        {
+            translate( [ 16.4, 5.8,  9.13 ] ) rotate( [180, 23.2, 0] ) strut();
+            translate( [-16.4, 5.9, 27.95 ] ) rotate( [0,-23, 180] ) strut();
+        }
     }
 }
