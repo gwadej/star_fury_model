@@ -30,14 +30,17 @@ that are not optimal. One day, I'll go back and fix that.
 The model is separated into several files, each focuses on a different part of
 the model.
 
+### starfury.scad
+
+This file cbrings together all of the definitions and declares the individual
+*plates* to be constructed. To build a given stl file, change the *plate*
+variable to have one of the defined values. The Makefile will construct each of
+the output stl files.
+
 ### baffle.scad
 
 This file describes that baffle structures that mount on the back portion of
 the main engines of the model.
-
-### baffles\_all.scad
-
-This file generates a single plate that contains all of the baffles.
 
 ### body.scad
 
@@ -51,10 +54,6 @@ The structure on the side of the engine that connects to the main struts.
 
 One of the four main engines on the model.
 
-### engines4.scad
-
-A printing plate that contains all four engines, ready to print.
-
 ### side\_thruster.scad
 
 The nozzle for the perpendicular thrusters on the engines.
@@ -66,10 +65,6 @@ A stand for holding the model.
 ### struts.scad
 
 These struts connect the engines to the main body of the model.
-
-### thrusters.scad
-
-This is a printing plate that contains all eight thruster pieces.
 
 ### utils.scad
 
