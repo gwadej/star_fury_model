@@ -1,4 +1,6 @@
 use <engine_mount.scad>
+use <utils.scad>
+
 $fn=30;
 mainlen=32.25;
 fwdlen=6.75;
@@ -89,10 +91,4 @@ module coupler(len,radl,radm,radr) {
         for (i = [0:5])
             rotate(i*60) translate([0,0,-len*0.1]) cube([maxr,1,len*1.2]);
     }
-}
-module nozzle(len,rad) {
-        union() {
-            cylinder(h=len,r=rad,center=true);
-            translate([0,0,len/2]) sphere(rad);
-        }
 }

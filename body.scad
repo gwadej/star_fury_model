@@ -22,15 +22,18 @@ thick=1;
 tl_angle1=70;
 cockpit_height=20;
 
-union() {
-    body();
-    top_guns( barrel_diam, barrel_len, flash );
-    translate( [0,-topwind+0.1,0] ) upper_support();
+module complete_body()
+{
+    union() {
+        body();
+        top_guns( barrel_diam, barrel_len, flash );
+        translate( [0,-topwind+0.1,0] ) upper_support();
 
-    translate( [7,0.4*middleheight,6] ) fuel_tank();
-    translate( [-7,0.4*middleheight,6] ) fuel_tank();
-    undercarriage( barrel_diam, mid+point/2, flash );
-    translate( [0,0.6*middleheight,0] ) lower_support();
+        translate( [7,0.4*middleheight,6] ) fuel_tank();
+        translate( [-7,0.4*middleheight,6] ) fuel_tank();
+        undercarriage( barrel_diam, mid+point/2, flash );
+        translate( [0,0.6*middleheight,0] ) lower_support();
+    }
 }
 
 module body () {

@@ -1,6 +1,7 @@
 use <baffle.scad>;
 use <engine.scad>;
 use <side_thruster.scad>;
+use <body.scad>;
 
 plate="baffle";
 
@@ -14,6 +15,10 @@ if( plate == "baffles_all" )
     translate([  5, -35, 0]) baffle_pair();
     translate([-40,  10, 0]) baffle_pair();
     translate([-40, -35, 0]) baffle_pair();
+}
+if( plate == "body" )
+{
+    complete_body();
 }
 if( plate == "engine" )
 {
@@ -29,7 +34,7 @@ if( plate == "engines4" )
 }
 if( plate == "thrusters" )
 {
-    for (x = [-30, -10, 10, 30])
+    for( x = [-30, -10, 10, 30] )
     {
         translate( [x, -10, 0] ) thruster();
         translate( [x,  10, 0] ) thruster();
