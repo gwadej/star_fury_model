@@ -2,6 +2,5 @@ PTEN_WB
 action
 model
 other
-*.stl
 *.jpg
 *.zip

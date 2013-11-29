@@ -1,12 +1,13 @@
 # Makefile for the Starfury model
 
 STLS=\
-	baffles_all.stl\
-	body.stl\
-	engines4.stl\
-	stand.stl\
-	struts.stl\
-	thrusters.stl
+	stl/baffles_all.stl\
+	stl/body.stl\
+	stl/engines4.stl\
+	stl/stand.stl\
+	stl/struts.stl\
+	stl/thrusters.stl\
+	stl/assembled.stl
 
 SRCS=\
 	 starfury.scad\
@@ -24,31 +25,31 @@ OPENSCAD=/usr/local/bin/openscad
 
 all: $(STLS)
 
-baffles_all.stl: $(SRCS)
+stl/baffles_all.stl: $(SRCS)
 	$(OPENSCAD) -o $@ -D'plate="baffles_all"' starfury.scad
 
-baffle_pair.stl: $(SRCS)
+stl/baffle_pair.stl: $(SRCS)
 	$(OPENSCAD) -o $@ -D'plate="baffle_pair"' starfury.scad
 
-body.stl: $(SRCS)
+stl/body.stl: $(SRCS)
 	$(OPENSCAD) -o $@ -D'plate="body"' starfury.scad
 
-engine.stl: $(SRCS)
+stl/engine.stl: $(SRCS)
 	$(OPENSCAD) -o $@ -D'plate="engine"' starfury.scad
 
-engines4.stl: $(SRCS)
+stl/engines4.stl: $(SRCS)
 	$(OPENSCAD) -o $@ -D'plate="engines4"' starfury.scad
 
-stand.stl: $(SRCS)
+stl/stand.stl: $(SRCS)
 	$(OPENSCAD) -o $@ -D'plate="stand"' starfury.scad
 
-struts.stl: $(SRCS)
+stl/struts.stl: $(SRCS)
 	$(OPENSCAD) -o $@ -D'plate="struts"' starfury.scad
 
-thrusters.stl: $(SRCS)
+stl/thrusters.stl: $(SRCS)
 	$(OPENSCAD) -o $@ -D'plate="thrusters"' starfury.scad
 
-asembled.stl: $(SRCS)
+stl/assembled.stl: $(SRCS)
 	$(OPENSCAD) -o $@ -D'plate="assembled"' starfury.scad
 
 # Create STL files from OpenSCAD files
