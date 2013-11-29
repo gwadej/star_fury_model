@@ -2,6 +2,7 @@ use <baffle.scad>;
 use <engine.scad>;
 use <side_thruster.scad>;
 use <body.scad>;
+use <stand.scad>;
 
 plate="baffle";
 
@@ -31,6 +32,17 @@ if( plate == "engines4" )
 
     translate( [-20,  20, 0] ) engine();
     translate( [ 20,  20, 0] ) mirror( [1, 0, 0] ) engine();
+}
+if( plate == "stand" )
+{
+    translate([25,0,0]) union() {
+        base();
+        shaft();
+    }
+    translate([-15,0,0]) top();
+}
+if( plate == "struts" )
+{
 }
 if( plate == "thrusters" )
 {

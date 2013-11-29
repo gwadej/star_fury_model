@@ -5,12 +5,6 @@ top_width=25;
 top_thick=2;
 pin_rad=1.5;
 
-translate([25,0,0]) union() {
-    base();
-    shaft();
-}
-translate([-15,0,0]) top();
-
 module base() {
     base_thick=2;
     base_rad=20;
