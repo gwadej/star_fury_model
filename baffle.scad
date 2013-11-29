@@ -19,6 +19,66 @@ module baffle_pair() {
     small_baffle();
 }
 
+module folded_small_baffle()
+{
+    xoff=swidth/2+flat-1.25*thickness;
+    union()
+    {
+        difference()
+        {
+            small_baffle();
+            translate( [ slength/2, -xoff, 0 ] ) rotate( [-30, 0, 0 ] ) cube( [slength, swidth, swidth], center=true );
+            translate( [ slength/2, xoff, 0 ] )  rotate( [ 30, 0, 0 ] ) cube( [slength, swidth, swidth], center=true );
+            translate( [ 0.93*slength+swidth/2, 0, 0 ] ) rotate( [ 0,-30, 0 ] ) cube( swidth, center=true );
+        }
+        translate( [0,-0.25,-sin(30)*(flat/2+0.6*thickness)] ) rotate( [-30,0,0] ) intersection()
+        {
+            small_baffle();
+            translate( [ slength/2, -xoff, 0 ] ) rotate( [-30, 0, 0 ] ) cube( [slength, swidth, swidth], center=true );
+        }
+        translate( [0,0.25,-sin(30)*(flat/2+0.6*thickness)] ) rotate( [30,0,0] ) intersection()
+        {
+            small_baffle();
+            translate( [ slength/2, xoff, 0 ] ) rotate( [30, 0, 0 ] ) cube( [slength, swidth, swidth], center=true );
+        }
+        translate( [0.2*sin(30)*slength,0,-sin(30)*(0.9*slength)] ) rotate( [0,-30,0] ) intersection()
+        {
+            small_baffle();
+            translate( [ 0.95*slength+swidth/2, 0, 0 ] ) rotate( [ 0,-30, 0 ] ) cube( swidth, center=true );
+        }
+    }
+}
+
+module folded_big_baffle()
+{
+    xoff=lwidth/2+flat-0.6*thickness;
+    union()
+    {
+        difference()
+        {
+            big_baffle();
+            translate( [ llength/2, -xoff, 0 ] ) rotate( [-30, 0, 0 ] ) cube( [llength, lwidth, swidth], center=true );
+            translate( [ llength/2, xoff, 0 ] )  rotate( [ 30, 0, 0 ] ) cube( [llength, lwidth, swidth], center=true );
+            translate( [ 0.93*llength+lwidth/2, 0, 0 ] ) rotate( [ 0,-30, 0 ] ) cube( lwidth, center=true );
+        }
+        translate( [0,-0.3,-sin(30)*(flat/2+0.9*thickness)] ) rotate( [-30,0,0] ) intersection()
+        {
+            big_baffle();
+            translate( [ llength/2, -xoff, 0 ] ) rotate( [-30, 0, 0 ] ) cube( [llength, lwidth, swidth], center=true );
+        }
+        translate( [0,0.3,-sin(30)*(flat/2+0.9*thickness)] ) rotate( [30,0,0] ) intersection()
+        {
+            big_baffle();
+            translate( [ llength/2, xoff, 0 ] ) rotate( [30, 0, 0 ] ) cube( [llength, lwidth, swidth], center=true );
+        }
+        translate( [0.2*sin(30)*llength,0,-sin(30)*(0.91*llength)] ) rotate( [0,-30,0] ) intersection()
+        {
+            big_baffle();
+            translate( [ 0.95*llength+lwidth/2, 0, 0 ] ) rotate( [ 0,-30, 0 ] ) cube( lwidth, center=true );
+        }
+    }
+}
+
 module baffle( len, wid ) {
     groove_offset=flat/2+thickness/2;
     difference() {

@@ -10,7 +10,7 @@ use <body.scad>;
 use <stand.scad>;
 use <struts.scad>;
 
-plate="engines4";
+plate="assembled";
 
 if( plate == "baffle_pair" )
 {
@@ -58,15 +58,16 @@ if( plate == "thrusters" )
 }
 if( plate == "assembled" )
 {
-    color( "tan" ) assembled_stand();
-    translate( [ 0, -2.35, 48] ) union()
-    {
-        assembled_body();
-
-        x_mirrored()
-        {
-            translate( [ 16.4, 5.8,  9.13 ] ) rotate( [180, 23.2, 0] ) strut();
-            translate( [-16.4, 5.9, 27.95 ] ) rotate( [0,-23, 180] ) strut();
-        }
-    }
+    folded_big_baffle();
+//    color( "tan" ) assembled_stand();
+//    translate( [ 0, -2.35, 48] ) union()
+//    {
+//        assembled_body();
+//
+//        x_mirrored()
+//        {
+//            translate( [ 16.4, 5.8,  9.13 ] ) rotate( [180, 23.2, 0] ) strut();
+//            translate( [-16.4, 5.9, 27.95 ] ) rotate( [0,-23, 180] ) strut();
+//        }
+//    }
 }
