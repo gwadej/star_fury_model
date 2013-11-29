@@ -58,7 +58,7 @@ if( plate == "thrusters" )
 }
 if( plate == "assembled" )
 {
-    color( "tan" ) assembled_stand();
+    assembled_stand();
     translate( [ 0, -2.35, 48] ) union()
     {
         assembled_body();
