@@ -1,5 +1,6 @@
 use <baffle.scad>;
 use <engine.scad>;
+use <side_thruster.scad>;
 
 plate="baffle";
 
@@ -25,4 +26,12 @@ if( plate == "engines4" )
 
     translate( [-20,  20, 0] ) engine();
     translate( [ 20,  20, 0] ) mirror( [1, 0, 0] ) engine();
+}
+if( plate == "thrusters" )
+{
+    for (x = [-30, -10, 10, 30])
+    {
+        translate( [x, -10, 0] ) thruster();
+        translate( [x,  10, 0] ) thruster();
+    }
 }

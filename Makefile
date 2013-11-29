@@ -12,7 +12,8 @@ SRCS=\
 	 starfury.scad\
 	 baffle.scad\
 	 engine.scad\
-	 engine_mount.scad
+	 engine_mount.scad\
+	 side_thruster.scad
 
 # This is system-specific
 OPENSCAD=/usr/local/bin/openscad
@@ -30,6 +31,9 @@ engine.stl: $(SRCS)
 
 engines4.stl: $(SRCS)
 	$(OPENSCAD) -o $@ -D'plate="engines4"' starfury.scad
+
+thrusters.stl: $(SRCS)
+	$(OPENSCAD) -o $@ -D'plate="thrusters"' starfury.scad
 
 # Create STL files from OpenSCAD files
 %.stl: %.scad
