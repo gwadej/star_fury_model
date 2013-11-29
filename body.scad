@@ -36,13 +36,14 @@ function lower_gun_xoff(diam)=bottomwidth/2+1.5*diam;
 function lower_gun_yoff(diam)=middleheight;
 function lower_gun_zoff(diam)=3.5*diam;
 
+// Printable model of the full body
 module complete_body()
 {
     diam=barrel_diam;
     union()
     {
         main_body();
-        // Add in the gun supports.
+        // Add in the gun printng supports.
         for( x = [ -upper_gun_xoff( diam ), upper_gun_xoff( diam ) ] )
             translate( [ x, upper_gun_yoff( diam ), 0 ] )
                 upper_gun_support( upper_gun_zoff( diam ), diam );
@@ -52,12 +53,14 @@ module complete_body()
     }
 }
 
-
+// Model of the body fit for use in an assembled model.
+//  Missing supports needed for printing and oriented differently.
 module assembled_body()
 {
     rotate( [-90, 0, 180 ] ) translate( [0, -(middleheight+bottomwidth/2), -mid/2 ] ) main_body();
 }
 
+// Model of the body without printing supports.
 module main_body()
 {
     union() {
@@ -72,6 +75,7 @@ module main_body()
     }
 }
 
+// The center section of the body.
 module body () {
     midback=mid-point/2;
     offset=midback -2;
@@ -92,6 +96,9 @@ module body () {
     }
 }
 
+// Core of the body design.
+//
+// midback - width of the middle of the back of the body
 module body_base(midback) {
     off=offset;
     bev=off/2;
@@ -152,6 +159,7 @@ module body_base(midback) {
     }
 }
 
+// Model of the upper strut mounting on the body.
 module upper_support() {
     thickness=6.48;
     edge=2;
@@ -216,20 +224,18 @@ module upper_support() {
     }
 }
 
-module mid_supports(dx,y,z) {
-    thickness=4.09;
-    depth=14;
-    len=16.5;
-    translate( [ dx, y, z] ) rotate( [0, 0, -43] ) translate( [len/4, 0, depth/2] ) cube( [len, thickness, depth], center=true );
-    translate( [-dx, y, z] ) rotate( [0, 0, 223] ) translate( [len/4, 0, depth/2] ) cube( [len, thickness, depth], center=true );
-}
-
+// Model of one of the side fuel tanks
 module fuel_tank() {
     rad=4.5;
     len=0.3*depth;
     translate( [0, 0, rad*zscale+len/2] ) scale( [1, 1, len/rad] ) sphere(rad);
 }
 
+// Model of the upper guns and their attachment to the body.
+//
+//  diam  - diameter of the gun
+//  len   - length of the gun
+//  flash - length of the flashing near the front of the gun
 module top_guns( diam, len, flash ) {
     xoffset=upper_gun_xoff( diam );
     yoffset=upper_gun_yoff( diam );
@@ -246,11 +252,20 @@ module top_guns( diam, len, flash ) {
         translate( [ 0, 0, zoffset] ) barrel( diam, len, flash, 1.5*diam );
 }
 
+// Print support for the upper guns
+//
+//  zoff - height of support
+//  diam - bottom diameter of support
 module upper_gun_support( zoff, diam )
 {
     cylinder( h=zoff-0.75*diam, r1=1.5*diam, r2=0.2 );
 }
 
+// Model of the lower guns and their attachment to the body.
+//
+//  diam     - diameter of the gun
+//  body_len - length of the gun
+//  flash    - length of the flashing near the front of the gun
 module lower_guns( diam, body_len, flash ) {
     xoffset=lower_gun_xoff( diam );
     yoffset=lower_gun_yoff( diam );
@@ -267,11 +282,20 @@ module lower_guns( diam, body_len, flash ) {
         translate( [ 0, 0, zoffset] ) barrel( diam, len, flash, 2*diam );
 }
 
+// Print support for the lower guns
+//
+//  zoff - height of support
+//  diam - bottom diameter of support
 module lower_gun_support( zoff, diam )
 {
     cylinder( h=zoff-diam, r1=1.25*diam, r2=0.2 );
 }
 
+// Model the undercarriage portion of the body
+//
+// diam  - diameter of the lower guns
+// len   - body length
+// flash - length of the flashing near the front of the gun
 module undercarriage( diam, len, flash ) {
     xoffset=-3*bottomwidth/8;
     yoffset=middleheight-bottomwidth/4;
@@ -285,6 +309,7 @@ module undercarriage( diam, len, flash ) {
     }
 }
 
+// Model of the lower strut mounting on the body.
 module lower_support() {
     thickness=6.48;
     edge=2;
@@ -343,6 +368,12 @@ module lower_support() {
     );
 }
 
+// Definition of a gun barrel
+//
+// diam  - larger diameter of the gun
+// len   - length of the gun
+// flash - length of the flashing near the front of the gun
+// diam2 - smaller diameter of the gun
 module barrel(diam,len,flash,diam2) {
       difference() {
             union() {
@@ -354,6 +385,8 @@ module barrel(diam,len,flash,diam2) {
            translate( [0, 0, len] ) rotate( [180, 0, 0] ) nozzle( diam, diam/2-0.45 );
      }
 }
+
+// The following modules define the different cockpit panes.
 
 module top_left_pane() {
     translate( [middlewidth/2+thick*sin(7),-1,cockpit_height-2*thick*cos(tl_angle1)] )
