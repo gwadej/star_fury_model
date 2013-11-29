@@ -2,21 +2,41 @@ $fn=30;
 
 top_len=43;
 top_width=25;
-top_thick=2;
 pin_rad=1.5;
+pole_height=45;
 
-module base() {
-    base_thick=2;
-    base_rad=20;
-    union() {
-        translate([0,0,base_thick/2]) cylinder(h=base_thick, r=base_rad, center=true);
-        translate([0,0,5]) cylinder(h=6, r1=base_rad, r2=7, center=true);
+module assembled_stand()
+{
+    union()
+    {
+        stand_main();
+        translate( [0, 0, pole_height] ) stand_top();
     }
 }
 
-module shaft() {
-    pole_height=45;
+module stand_main()
+{
     pole_rad=5;
+    top_thick=2;
+    union()
+    {
+        base();
+        shaft( pole_height, pole_rad, top_thick, pin_rad );
+    }
+}
+
+module base() {
+    height=6;
+    base_thick=2;
+    r_base_max=20;
+    r_base_min=7;
+    union() {
+        translate([0,0,base_thick/2]) cylinder(h=base_thick, r=r_base_max, center=true);
+        translate([0,0,height-base_thick/2]) cylinder(h=height, r1=r_base_max, r2=r_base_min, center=true);
+    }
+}
+
+module shaft( pole_height, pole_rad, top_thick, pin_rad ) {
     union() {
         // pole
         translate([0,0,pole_height/2]) cylinder(h=pole_height, r=pole_rad, center=true);
@@ -25,7 +45,7 @@ module shaft() {
     }
 }
 
-module top() {
+module stand_top() {
     difference() {
         union() {
             translate([0,-4,1]) cube([10,top_len,2], center=true);

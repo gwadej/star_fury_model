@@ -48,6 +48,9 @@ struts.stl: $(SRCS)
 thrusters.stl: $(SRCS)
 	$(OPENSCAD) -o $@ -D'plate="thrusters"' starfury.scad
 
+asembled.stl: $(SRCS)
+	$(OPENSCAD) -o $@ -D'plate="assembled"' starfury.scad
+
 # Create STL files from OpenSCAD files
 %.stl: %.scad
 	$(OPENSCAD) -o $@ $<

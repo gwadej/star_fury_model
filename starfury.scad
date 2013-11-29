@@ -37,11 +37,8 @@ if( plate == "engines4" )
 }
 if( plate == "stand" )
 {
-    translate([25,0,0]) union() {
-        base();
-        shaft();
-    }
-    translate([-15,0,0]) top();
+    translate( [ 25, 0, 0 ] ) stand_main();
+    translate( [-15, 0, 0 ] ) stand_top();
 }
 if( plate == "struts" )
 {
@@ -54,4 +51,9 @@ if( plate == "thrusters" )
         translate( [x, -10, 0] ) thruster();
         translate( [x,  10, 0] ) thruster();
     }
+}
+if( plate == "assembled" )
+{
+//    assembled_stand();
+    assembled_body();
 }

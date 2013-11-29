@@ -22,7 +22,31 @@ thick=1;
 tl_angle1=70;
 cockpit_height=20;
 
+function upper_gun_xoff(diam)=width/2+diam;
+function upper_gun_yoff(diam)=-1.5*diam;
+function upper_gun_zoff(diam)=4;
+
+function lower_gun_xoff(diam)=bottomwidth/2+1.5*diam;
+function lower_gun_yoff(diam)=middleheight;
+function lower_gun_zoff(diam)=3.5*diam;
+
 module complete_body()
+{
+    diam=barrel_diam;
+    union()
+    {
+        assembled_body();
+        // Add in the gun supports.
+        for( x = [ -upper_gun_xoff( diam ), upper_gun_xoff( diam ) ] )
+            translate( [ x, upper_gun_yoff( diam ), 0 ] )
+                upper_gun_support( upper_gun_zoff( diam ), diam );
+        for( x = [ -lower_gun_xoff( diam ), lower_gun_xoff( diam ) ] )
+            translate( [ x, lower_gun_yoff( diam ), 0 ] )
+                lower_gun_support( lower_gun_zoff( diam ), diam );
+    }
+}
+
+module assembled_body()
 {
     union() {
         body();
@@ -195,46 +219,48 @@ module fuel_tank() {
 }
 
 module top_guns( diam, len, flash ) {
-    xoffset=width/2+diam;
-    yoffset=-3*diam/2;
-    zoffset=4;
+    xoffset=upper_gun_xoff( diam );
+    yoffset=upper_gun_yoff( diam );
+    zoffset=upper_gun_zoff( diam );
 
     // forward gun support
     translate( [0, yoffset, len-flash-1.5*diam] ) cube( [xoffset*2+3*diam/2, 1.25*diam, 2*diam], center=true );
     // rear gun support
     translate( [0, yoffset, 6] ) cube( [xoffset*2+3*diam/2, 1.6*diam, diam], center=true );
 
-    translate( [-xoffset, yoffset, 0] ) union() {
+    translate( [-xoffset, yoffset, 0] )
         translate( [0, 0, zoffset] ) barrel( diam, len, flash,1.5*diam );
-        cylinder( h=zoffset-0.75*diam, r1=1.5*diam, r2=0.2 );
-    };
-    translate( [ xoffset, yoffset, 0] ) union() {
+    translate( [ xoffset, yoffset, 0] )
         translate( [ 0, 0, zoffset] ) barrel( diam, len, flash, 1.5*diam );
-        cylinder( h=zoffset-0.75*diam, r1=1.5*diam, r2=0.2 );
-    };
+}
+
+module upper_gun_support( zoff, diam )
+{
+    cylinder( h=zoff-0.75*diam, r1=1.5*diam, r2=0.2 );
 }
 
 module lower_guns( diam, body_len, flash ) {
-    xoffset=bottomwidth/2+3*diam/2;
-    yoffset=middleheight;
-    zoffset=3.5*diam;
+    xoffset=lower_gun_xoff( diam );
+    yoffset=lower_gun_yoff( diam );
+    zoffset=lower_gun_zoff( diam );
     len=body_len-3*diam;
 
     // forward gun support
     translate( [0, yoffset, len-flash] ) cube( [xoffset*2+3*diam/2, 1.25*diam, 2*diam], center=true );
     // rear gun support
     translate( [0, yoffset, len/2] ) cube( [xoffset*2+2*diam, 2*diam, 2*diam], center=true );
-    translate( [-xoffset, yoffset, 0] ) union() {
+    translate( [-xoffset, yoffset, 0] )
         translate( [0, 0, zoffset] ) barrel( diam, len, flash, 2*diam );
-        cylinder( h=zoffset-diam, r1=1.25*diam, r2=0.2 );
-    };
-    translate( [ xoffset, yoffset, 0] ) union() {
+    translate( [ xoffset, yoffset, 0] )
         translate( [ 0, 0, zoffset] ) barrel( diam, len, flash, 2*diam );
-        cylinder( h=zoffset-diam, r1=1.25*diam, r2=0.3 );
-    };
 }
 
-module undercarriage(diam,len,flash) {
+module lower_gun_support( zoff, diam )
+{
+    cylinder( h=zoff-diam, r1=1.25*diam, r2=0.2 );
+}
+
+module undercarriage( diam, len, flash ) {
     xoffset=-3*bottomwidth/8;
     yoffset=middleheight-1*bottomwidth/4;
     union () {
