@@ -36,7 +36,9 @@ As my design skills improve, I hope to revisit this model.
 
 ## Build Instructions
 
-The model is made up of a number of pieces that must be glued together to make the final piece. I used an ABS/acetone mixture as glue. I assume superglue or model cement would work as well.
+The model is made up of a number of pieces that must be glued together to make
+the final piece. I used an ABS/acetone mixture as glue. I assume super glue or
+model cement would work as well.
 
 You need to print one each of
 
@@ -134,10 +136,10 @@ the model.
 
 ### starfury.scad
 
-This file cbrings together all of the definitions and declares the individual
-*plates* to be constructed. To build a given stl file, change the *plate*
+This file brings together all of the definitions and declares the individual
+*plates* to be constructed. To build a given STL file, change the *plate*
 variable to have one of the defined values. The Makefile will construct each of
-the output stl files.
+the output STL files.
 
 ### baffle.scad
 
