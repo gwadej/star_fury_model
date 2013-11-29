@@ -3,7 +3,6 @@
 // Copyright: 2013 G. Wade Johnson, Some Rights Reserved.
 // Definition for the starfury engines.
 
-use <engine_mount.scad>
 use <utils.scad>
 
 $fn=30;
@@ -19,7 +18,14 @@ fwdoffset=mainlen+mainoffset;
 eng_rad=9;
 eng_smrad=6.6;
 tip_len=30.3;
+tip_thick=4.32;
+mount_edge=2;
 
+topoff=10.26;
+mount_width=34.89;
+adj=mount_width*(sin(28)-sin(34));
+
+// Combine the parts of the engine assembly into a single model.
 module engine() {
     difference() {
         union() {
@@ -33,6 +39,7 @@ module engine() {
     }
 }
 
+// Define the forward portion of the engine assembly
 module forward_assembly() {
     bevel=3.4;
     fwd_sm=4.5;
@@ -47,6 +54,8 @@ module forward_assembly() {
         translate( [0,0,fwdlen+fwdgap] ) rotate( [0,180,0] ) nozzle( fwdlen, 3 );
     }
 }
+
+// Define the core portion of the engine assembly
 module engine_body() {
     translate( [0,0,mainoffset] ) union() {
         cylinder( h=mainlen, r1=eng_rad, r2=eng_smrad );
@@ -54,6 +63,10 @@ module engine_body() {
         rotate( [0,0,90] ) translate( [-eng_smrad,0,mainlen] ) side_nozzle_support();
     }
 }
+
+// Define the rear structure of the engine.
+//
+//  cylbig - the larger radius of the rear assembly.
 module rear_assembly( cylbig ) {
     cylsmall=7.5;
     pinch=6;
@@ -67,6 +80,7 @@ module rear_assembly( cylbig ) {
     }
 }
 
+// Define the structure where the thruster nozzle will mount to the engine.
 module side_nozzle_support() {
 	translate([-4.2,0,-6.3]) rotate([0,90,0]) difference() {
         union() {
@@ -86,6 +100,12 @@ module side_nozzle_support() {
     }
 }
 
+// Define the connector between different sections of the engine.
+//
+//  len - length of the coupling
+//  radl - radius of the larger part
+//  radm - radius of the center of the coupling
+//  radr - radius of the smaller part
 module coupler(len,radl,radm,radr) {
     maxr = max(radl,radr);
     union() {
@@ -93,5 +113,30 @@ module coupler(len,radl,radm,radr) {
         translate([0,0,len/2]) cylinder(h=len/2,r1=radm,r2=radr );
         for (i = [0:5])
             rotate(i*60) translate([0,0,-len*0.1]) cube([maxr,1,len*1.2]);
+    }
+}
+
+// Define the connector between the engine and the mounting strut.
+module mount() {
+    depth=8;
+    union() {
+        translate( [tip_len+adj, 0, 0] )
+        rotate([-90,0,0])
+        linear_extrude( height=mount_edge ) polygon(
+            points = [
+                [0, 0], [0.65*depth,-0.35*depth], [0, -depth]
+            ],
+            paths = [ [0, 1, 2] ]
+        );
+        linear_extrude( height=depth ) polygon(
+            points = [
+                [0, 0],
+                [0, mount_edge],
+                [topoff, tip_thick],
+                [tip_len-topoff+adj, tip_thick],
+                [tip_len+adj, mount_edge],
+                [tip_len+adj, 0]
+            ]
+        );
     }
 }

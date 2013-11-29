@@ -14,7 +14,6 @@ SRCS=\
 	 baffle.scad\
 	 body.scad\
 	 engine.scad\
-	 engine_mount.scad\
 	 side_thruster.scad\
 	 stand.scad\
 	 struts.scad\
