@@ -10,7 +10,9 @@ STLS=\
 
 SRCS=\
 	 starfury.scad\
-	 baffle.scad
+	 baffle.scad\
+	 engine.scad\
+	 engine_mount.scad
 
 # This is system-specific
 OPENSCAD=/usr/local/bin/openscad
@@ -18,10 +20,16 @@ OPENSCAD=/usr/local/bin/openscad
 all: $(STLS)
 
 baffles_all.stl: $(SRCS)
-	$(OPENSCAD) -o $@ -D'plate="all_baffles"' starfury.scad
+	$(OPENSCAD) -o $@ -D'plate="baffles_all"' starfury.scad
 
 baffle.stl: $(SRCS)
 	$(OPENSCAD) -o $@ -D'plate="baffle"' starfury.scad
+
+engine.stl: $(SRCS)
+	$(OPENSCAD) -o $@ -D'plate="engine"' starfury.scad
+
+engines4.stl: $(SRCS)
+	$(OPENSCAD) -o $@ -D'plate="engines4"' starfury.scad
 
 # Create STL files from OpenSCAD files
 %.stl: %.scad
