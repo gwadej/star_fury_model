@@ -1,3 +1,8 @@
+// File: engine.scad
+// Author: G. Wade Johnson
+// Copyright: 2013 G. Wade Johnson, Some Rights Reserved.
+// Definition for the starfury engines.
+
 use <engine_mount.scad>
 use <utils.scad>
 

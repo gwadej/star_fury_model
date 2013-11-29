@@ -1,3 +1,9 @@
+// File: engine_mount.scad
+// Author: G. Wade Johnson
+// Copyright: 2013 G. Wade Johnson, Some Rights Reserved.
+// Define the connector between the starfury engine and the struts that support
+//  it.
+
 $fn=30;
 tip_thick=4.32;
 tip_len=30.3;

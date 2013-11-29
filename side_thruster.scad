@@ -1,3 +1,8 @@
+// File: side_thruster.scad
+// Author: G. Wade Johnson
+// Copyright: 2013 G. Wade Johnson, Some Rights Reserved.
+// Description of the thruster nozzles on the sides of the starfury engines.
+
 $fn=30;
 
 module thruster() {

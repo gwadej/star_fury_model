@@ -1,3 +1,6 @@
+// File: utils.scad
+// Author: G. Wade Johnson
+// Copyright: 2013 G. Wade Johnson, Some Rights Reserved.
 // Utility methods for building star fury model
 
 module nozzle(len,rad)
@@ -8,6 +11,7 @@ module nozzle(len,rad)
     }
 }
 
+// Mirror all of the children of this module around the x axis.
 module x_mirrored()
 {
     for( i = [ 0:$children-1 ] )

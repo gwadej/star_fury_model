@@ -1,4 +1,10 @@
+// File: body.scad
+// Author: G. Wade Johnson
+// Copyright: 2013 G. Wade Johnson, Some Rights Reserved.
+// Design file for the core of the starfury body.
+
 include <utils.scad>
+
 $fn=30;
 zscale=56/37;
 height=23.73;

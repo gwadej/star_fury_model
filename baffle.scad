@@ -1,3 +1,8 @@
+// File: baffle.scad
+// Author: G. Wade Johnson
+// Copyright: 2013 G. Wade Johnson, Some Rights Reserved.
+// Define the baffles that mount on the back of the starfury engines.
+
 $fn=30;
 lwidth=18; // Based on engine large radius
 llength=37.77; //based on engine length

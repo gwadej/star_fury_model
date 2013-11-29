@@ -1,3 +1,9 @@
+// File: struts.scad
+// Author: G. Wade Johnson
+// Copyright: 2013 G. Wade Johnson, Some Rights Reserved.
+// Design for the struts that connect the engines to the body of the starfury
+//  model
+
 $fn=30;
 base_thick=6.48;
 tip_thick=4.32;

@@ -1,4 +1,8 @@
+// File: starfury.scad
+// Author: G. Wade Johnson
+// Copyright: 2013 G. Wade Johnson, Some Rights Reserved.
 // Main driver file for the creation of the Star Fury Model
+
 use <baffle.scad>;
 use <engine.scad>;
 use <side_thruster.scad>;

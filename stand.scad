@@ -1,3 +1,8 @@
+// File: stand.scad
+// Author: G. Wade Johnson
+// Copyright: 2013 G. Wade Johnson, Some Rights Reserved.
+// Definition of the stand to support the starfury model.
+
 $fn=30;
 
 top_len=43;
