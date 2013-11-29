@@ -12,18 +12,120 @@ that.
 
 ## Design
 
-This design is a simplified version of the Star Fury seen throughout the
-series. One day, I hope to extend the design to be more accurate. I wanted
+This model is my first attempt to create an Aurora-class
+[Starfury](http://en.wikipedia.org/wiki/Starfury) from the television show
+Babylon 5. I've always liked the design of this one-man fighter craft and
+decided that it would be a fun and challenging design project. I wanted
 the design to be big enough to handle, but the parts had to fit within the
 build volume of my Thing-o-matic.
 
-To avoid the problem of needing to print a lot of support, I decided to
-design the model in parts and assemble it into the final model. This ended up
-meaning that the model requires a lot of post processing. But the result is
-pretty impressive.
+The included STL files were designed for efficiency of printing and assembling
+a single model. You can use the included OpenSCAD files to print individual
+parts or make modifications. I hope to make the OpenSCAD files easier to modify
+at some point.
 
-This was my first serious design using OpenSCAD, so there are quite a few bits
-that are not optimal. One day, I'll go back and fix that.
+Although this is a pretty good first attempt, there are several features that
+are not quite correct.
+
+1. The upper supports are much simpler than they should be.
+2. The forward guns are not as well-formed and sturdy as I would like.
+3. The detail on the sides of the body could use some work.
+4. The back of the model has no detail at all.
+
+As my design skills improve, I hope to revisit this model.
+
+## Build Instructions
+
+The model is made up of a number of pieces that must be glued together to make the final piece. I used an ABS/acetone mixture as glue. I assume superglue or model cement would work as well.
+
+You need to print one each of
+
+1. stand.stl - support for model 
+2. body.stl - main body 
+3. struts.stl - connect the engines to the body 
+4. engines4.stl - mount at the ends of the struts 
+5. thrusters.stl - small thruster engines at right angles to main engines 
+6. baffles\_all.stl - baffles mounting to the rear of the main engines
+
+Note: The body (body.stl) has four conical supports that snap off after the
+print is complete. Sometimes these will disconnect when you remove the body
+from the build platform. That is not a sign of a problem. If any of the
+supports remain attached to the body, they should snap off relatively easily.
+
+Note: Almost all parts should be relatively insensitive to minor differences in
+printer configuration. However, I found that the baffles\_all.stl only prints
+well with extra shells set to 0 and 100% infill (in the Fill plugin).
+
+1. (stand.stl) Glue the flat part of the cross shape on top of the shaft,
+   inserting the pin on the top of the shaft in the hole on the top.
+2. Glue the wide portion of one pair of struts (struts.stl) to the upper
+   support on the body (body.stl). The flat portion of the struts will be on
+   the bottom. Both the side of the strut and the mount point are angled, so
+   the result should angle upward. (Look at the pictures to determine which
+   part of the body is the top.)
+   * If necessary, sand off any rough spots to allow for a good fit.
+   * You will need to hold or tape this piece in place until the glue dries.
+3. Glue the wide portion of the other pair of struts to the supports on the
+   lower sides of the body. The flat portion of the struts should face up. Both
+   the side of the strut and the mount point are angled, so the result should
+   angle downward.
+   * If necessary, sand off any rough spots to allow for a good fit.
+   * You will need to hold or tape this piece in place until the glue dries.
+4. Now is a good time to attach (not glue) the body to the stand. This will
+   make further work easier, since there is no flat portion of the model that
+   you can set down. The longer portion of the top of the stand should match
+   with the front of the model.
+   * There are two pair of rectangular supports on the bottom of the body.
+     These supports should match the gaps in the side rails of the top of the
+     stand. A little pressure should friction-fit these pieces together.
+5. Each of the engines (engines4.stl) has a pair of holes at right angles on
+   the side of the engine. These are mounting points for the little thruster
+   nozzles (thrusters.stl).
+   * Glue one nozzle with the shaft inside each of the two side holes on the
+     engine.
+   * Repeat for each of the four.
+6. There are two different versions of the engine (engines4.stl). Find the
+   engine that matches with the top right strut (looking at the small end, the
+   thrusters will point up and right and the engine mount will be on the top
+   left).
+   * Glue the engine mount to the end of the top right strut. If necessary,
+     sand off any rough spots to allow for a good fit.
+   * You will need to hold or tape this piece in place until the glue dries.
+7. Find the engine that matches the top left strut (thrusters point up and
+   left, engine mount on top right). Glue the engine mount to the end of the
+   top left strut. If necessary, sand off any rough spots to allow for a good
+   fit.
+8. Find the engine that matches the lower right strut (thrusters point down and
+   right, engine mount on lower left). Glue the engine mount to the end of the
+   lower right strut. If necessary, sand off any rough spots to allow for a
+   good fit.
+9. Find the engine that matches the lower left strut (thrusters point down and
+   left, engine mount on lower right). Glue the engine mount to the end of the
+   lower left strut. If necessary, sand off any rough spots to allow for a good
+   fit.
+10. The baffles (baffles\_all.stl) require some minor modification before
+    mounting. With the flat side down, there are two grooves that run
+    lengthwise down each baffle. The sides of the baffle should be bent upward
+    about 10-15 degrees on each side.
+11. Each of the little *fingers* at the end of the baffle also need to be bent
+    slightly upwards (maybe 5 degrees).
+12. Repeat steps 10 and 11 for all 8 baffles.
+13. The smaller baffles mount on the side of the rear nozzle closest to the
+    body. There is a small hole that matches a small pin on the top front of
+    the baffle. (It is relatively close to the angle of the support strut.)
+    * Glue this pin in the hole. You will need to hold this for some time until
+      the glue sets. Try to keep the fingers pointed directly to the rear of
+      the module.
+14. Repeat step 13 for all of the small baffles.
+15. The larger baffles mount on the outside of the rear nozzle. There is a
+    small hole that matches a small pin on the top front of the baffle. (It is
+    very close to directly opposite the angle of the support strut.)
+    * Glue this pin in the hole. You will need to hold this for some time until
+      the glue sets. Try to keep the fingers pointed directly to the rear of
+      the module.
+16. Repeat step 15 for the rest of the large baffles.
+
+Congratulations, you have your own Starfury model!
 
 ## Major Parts
 
@@ -70,14 +172,11 @@ These struts connect the engines to the main body of the model.
 
 Utilities used while designing the model.
 
-## Assembly Notes
+## Assembled STL File
 
-The body model has 4 conical supports that snap off. They are just there to
-make printing possible.
-
-The baffles must be printed flat, but they are actually slightly curved. Bend
-the baffles approximately 30 degrees lengthwise at the groves. Bend the end
-*fingers* slightly at the grooves.
+The file *assembled.stl* shows what the model looks like once it is fully
+assembled. This STL is not meant to be printed, it just serves as a reference
+model.
 
 ## Future Directions
 
