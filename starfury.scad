@@ -10,7 +10,7 @@ use <body.scad>;
 use <stand.scad>;
 use <struts.scad>;
 
-plate="assembled";
+plate="engines4";
 
 if( plate == "baffle_pair" )
 {
@@ -33,11 +33,11 @@ if( plate == "engine" )
 }
 if( plate == "engines4" )
 {
-    translate( [-20, -20, 0] ) engine();
-    translate( [ 20, -20, 0] ) mirror( [1, 0, 0] ) engine();
-
-    translate( [-20,  20, 0] ) engine();
-    translate( [ 20,  20, 0] ) mirror( [1, 0, 0] ) engine();
+    x_mirrored()
+    {
+        translate( [-20, -20, 0] ) engine();
+        translate( [-20,  20, 0] ) engine();
+    }
 }
 if( plate == "stand" )
 {
