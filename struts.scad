@@ -17,6 +17,7 @@ back_base=14*strut_len/45;
 back_tip=8.5*strut_len/45;
 back_len=5.4*strut_len/45;
 
+// Plate of all four struts
 module all_struts()
 {
     translate([ 5,0.7*base_len,0]) strut();
@@ -26,6 +27,7 @@ module all_struts()
     translate([-5,-0.6*base_len,0]) mirror([1,0,0]) strut();
 }
 
+// Model of a single engine support strut
 module strut() {
     ifrac=0.8;
     ofrac=1-ifrac;
