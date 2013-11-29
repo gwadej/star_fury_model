@@ -9,13 +9,13 @@ base_thick=6.48;
 tip_thick=4.32;
 base_len=33.33;
 tip_len=30.3;
-width=34.89;
+strut_len=34.89;
 edge=2;
 topoff=10.26;
 
-back_base=14*width/45;
-back_tip=8.5*width/45;
-back_len=5.4*width/45;
+back_base=14*strut_len/45;
+back_tip=8.5*strut_len/45;
+back_len=5.4*strut_len/45;
 
 module all_struts()
 {
@@ -35,11 +35,11 @@ module strut() {
         polyhedron(
             points = [
                 // base: 0 : 3
-                [-base_thick*sin(12.5), base_len/2, 0], [-base_thick*sin(12.5), -base_len/2, 0], [width, -tip_len/2-width*sin(28), 0], [width, tip_len/2-width*sin(34), 0],
+                [-base_thick*sin(12.5), base_len/2, 0], [-base_thick*sin(12.5), -base_len/2, 0], [strut_len, -tip_len/2-strut_len*sin(28), 0], [strut_len, tip_len/2-strut_len*sin(34), 0],
                 // top, right: 4 : 7
                 [-(base_thick-edge)*sin(12.5), base_len/2, edge], [0, base_len/2-topoff, base_thick], [0, -base_len/2+topoff, base_thick], [-(base_thick-edge)*sin(12.5), -base_len/2, edge],
                 // top, left: 8 : 11
-                [width, -tip_len/2-width*sin(28), edge], [width, -tip_len/2+topoff-width*sin(28), tip_thick], [width, tip_len/2-topoff-width*sin(34), tip_thick], [width, tip_len/2-width*sin(34), edge],
+                [strut_len, -tip_len/2-strut_len*sin(28), edge], [strut_len, -tip_len/2+topoff-strut_len*sin(28), tip_thick], [strut_len, tip_len/2-topoff-strut_len*sin(34), tip_thick], [strut_len, tip_len/2-strut_len*sin(34), edge],
             ],
             triangles = [
                 //base:0,1

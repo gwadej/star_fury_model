@@ -24,7 +24,7 @@ module engine() {
     difference() {
         union() {
             forward_assembly();
-            main_body();
+            engine_body();
             rear_assembly(eng_rad);
             translate([-0.44*eng_smrad,1.8,mainoffset]) rotate( [0,-90,-90-23] ) mirror([0,1,0]) mount();
         }
@@ -47,7 +47,7 @@ module forward_assembly() {
         translate( [0,0,fwdlen+fwdgap] ) rotate( [0,180,0] ) nozzle( fwdlen, 3 );
     }
 }
-module main_body() {
+module engine_body() {
     translate( [0,0,mainoffset] ) union() {
         cylinder( h=mainlen, r1=eng_rad, r2=eng_smrad );
         translate( [-eng_smrad,0,mainlen] ) side_nozzle_support();
