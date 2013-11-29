@@ -3,6 +3,10 @@
 // Copyright: 2013 G. Wade Johnson, Some Rights Reserved.
 // Utility methods for building star fury model
 
+// Definition of the material to be subtracted to generate a nice nozzle shape.
+//
+// len  - depth of nozzle
+// rad  - radius of nozzle
 module nozzle(len,rad)
 {
     union() {
