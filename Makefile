@@ -16,6 +16,7 @@ SRCS=\
 	 engine_mount.scad\
 	 side_thruster.scad\
 	 stand.scad\
+	 struts.scad\
 	 utils.scad
 
 # This is system-specific
@@ -40,6 +41,9 @@ engines4.stl: $(SRCS)
 
 stand.stl: $(SRCS)
 	$(OPENSCAD) -o $@ -D'plate="stand"' starfury.scad
+
+struts.stl: $(SRCS)
+	$(OPENSCAD) -o $@ -D'plate="struts"' starfury.scad
 
 thrusters.stl: $(SRCS)
 	$(OPENSCAD) -o $@ -D'plate="thrusters"' starfury.scad

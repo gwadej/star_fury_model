@@ -1,10 +1,12 @@
+// Main driver file for the creation of the Star Fury Model
 use <baffle.scad>;
 use <engine.scad>;
 use <side_thruster.scad>;
 use <body.scad>;
 use <stand.scad>;
+use <struts.scad>;
 
-plate="baffle";
+plate="struts";
 
 if( plate == "baffle" )
 {
@@ -43,6 +45,7 @@ if( plate == "stand" )
 }
 if( plate == "struts" )
 {
+    all_struts();
 }
 if( plate == "thrusters" )
 {
